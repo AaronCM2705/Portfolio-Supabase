@@ -13,7 +13,7 @@ function App() {
       <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
         <Navbar />
         {/* El padding-top (pt-20) evita que el menú tape el contenido */}
-        <main className="flex-grow pt-20">
+        <main className="grow pt-20">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sobre-mi" element={<SobreMi />} />
