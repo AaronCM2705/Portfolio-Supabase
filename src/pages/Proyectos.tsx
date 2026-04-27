@@ -15,7 +15,6 @@ const Proyectos = () => {
 
   useEffect(() => {
     const fetchProyectos = async () => {
-      // IMPORTANTE: 'Proyectos' con P mayúscula
       const { data, error } = await supabase.from('Proyectos').select('*');
       
       if (error) {

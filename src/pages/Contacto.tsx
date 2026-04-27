@@ -1,10 +1,8 @@
-// src/pages/Contacto.tsx
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaDatabase } from 'react-icons/fa';
 
-// 1. Definimos la estructura de lo que viene de la base de datos
 interface InfoContacto {
   email_personal: string;
   direccion_texto: string;
@@ -16,13 +14,12 @@ const Contacto = () => {
   const [status, setStatus] = useState('');
   const [cargando, setCargando] = useState(true);
 
-  // 2. Cargamos la configuración desde la tabla Informacion_Contacto
   useEffect(() => {
     const fetchInfo = async () => {
       const { data, error } = await supabase
         .from('Informacion_Contacto')
         .select('*')
-        .single(); // Traemos solo la fila de configuración
+        .single(); 
 
       if (error) {
         console.error("Error al cargar info de contacto:", error.message);
@@ -34,7 +31,7 @@ const Contacto = () => {
     fetchInfo();
   }, []);
 
-  // 3. Manejador para enviar el formulario a Mensaje_Contacto
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('Enviando...');
@@ -70,7 +67,6 @@ const Contacto = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           
-          {/* COLUMNA IZQUIERDA: Información Dinámica */}
           <div className="space-y-10">
             <div className="space-y-4">
               <h1 className="text-7xl font-black uppercase italic text-[#e63946] leading-none">
@@ -80,7 +76,6 @@ const Contacto = () => {
             </div>
 
             <div className="space-y-6">
-              {/* Card de Email */}
               <a 
                 href={`mailto:${info?.email_personal}`} 
                 className="group flex items-center gap-4 bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl hover:border-[#e63946] transition-all duration-500 shadow-xl"
@@ -96,7 +91,6 @@ const Contacto = () => {
                 </div>
               </a>
 
-              {/* Sección Mapa */}
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-2">
                   <FaMapMarkerAlt className="text-[#e63946] text-xl" />
@@ -105,7 +99,6 @@ const Contacto = () => {
                   </p>
                 </div>
                 
-                {/* El iframe usa la URL de Supabase */}
                 <div className="w-full h-72 rounded-[40px] overflow-hidden border-2 border-zinc-800 grayscale invert opacity-60 hover:grayscale-0 hover:invert-0 hover:opacity-100 transition-all duration-1000 shadow-2xl">
                   {info?.google_maps_url ? (
                     <iframe 
@@ -126,7 +119,6 @@ const Contacto = () => {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: Formulario de Registro */}
           <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/5 blur-3xl"></div>
             

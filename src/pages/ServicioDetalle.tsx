@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../supabase/supabaseClient';
 import { FaArrowLeft } from 'react-icons/fa';
 
-// 1. DEFINIMOS LA ESTRUCTURA (Interface) para que TypeScript no se queje
 interface Servicio {
   id: number;
   nombre: string;
@@ -13,14 +12,12 @@ interface Servicio {
 }
 
 const ServicioDetalle = () => {
-  const { id } = useParams<{ id: string }>(); // Tipamos también el parámetro de la URL
+  const { id } = useParams<{ id: string }>(); 
   
-  // 2. USAMOS LA INTERFACE AQUÍ (En lugar de any)
   const [servicio, setServicio] = useState<Servicio | null>(null);
 
   useEffect(() => {
     const fetchServicio = async () => {
-      // Usamos .single() porque solo queremos un servicio, no un array
       const { data, error } = await supabase
         .from('Servicios')
         .select('*')

@@ -1,5 +1,3 @@
-// src/components/Navbar.tsx
-
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
@@ -14,13 +12,13 @@ const Navbar = () => {
     { name: 'Servicio', path: '/servicios' },
     { name: 'Proyecto', path: '/proyectos' },
     { name: 'Contacto', path: '/contacto' },
+    { name: 'Cursos', path: '/cursos' }
   ];
 
   return (
     <nav className="bg-[#0a0a0a] border-b border-zinc-800 fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-28">
         
-        {/* === LOGO === */}
         <div className="shrink-0 z-50">
           <Link to="/" className="flex items-center gap-4">
             <img 
@@ -28,21 +26,17 @@ const Navbar = () => {
               alt="Logo ACM - Aaron Cruz" 
               className="h-16 lg:h-20 w-auto object-contain transition-transform hover:scale-105 duration-300" 
             />
-            {/* Ocultamos el texto en pantallas medianas para que no choque */}
             <span className="hidden xl:block text-4xl font-black text-[#e63946] italic tracking-tighter">
               AaronMCM
             </span>
           </Link>
         </div>
 
-        {/* === LINKS PC === */}
-        {/* Cambiamos md:flex por lg:flex para que salte a móvil antes (en tablets) */}
         <div className="hidden lg:flex items-center gap-6 xl:gap-10">
           {links.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              // Añadimos whitespace-nowrap para que no se partan las palabras
               className={`whitespace-nowrap text-sm font-bold uppercase tracking-widest transition-all duration-300 ${
                 location.pathname === link.path ? 'text-[#e63946] scale-110' : 'text-zinc-400 hover:text-white'
               }`}
@@ -60,15 +54,11 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* === BOTÓN MÓVIL === */}
-        {/* Cambiamos md:hidden por lg:hidden */}
         <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-[#e63946] text-3xl z-50 relative">
           {isOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
-      {/* === MENÚ MÓVIL === */}
-      {/* Añadimos 'absolute' y corregimos el posicionamiento para que baje bien */}
       {isOpen && (
         <div className="lg:hidden absolute top-28 left-0 w-full bg-[#0f0f0f] border-b border-zinc-800 p-10 flex flex-col gap-6 animate-in slide-in-from-top duration-300 shadow-2xl">
           {links.map((link) => (

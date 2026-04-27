@@ -6,13 +6,13 @@ import Servicios from './pages/Servicios';
 import Proyectos from './pages/Proyectos';
 import Contacto from './pages/Contacto';
 import ServicioDetalle from './pages/ServicioDetalle';
+import Cursos from './pages/Cursos';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
         <Navbar />
-        {/* El padding-top (pt-20) evita que el menú tape el contenido */}
         <main className="grow pt-20">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -22,6 +22,7 @@ function App() {
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/servicios" element={<Servicios />} />
             <Route path="/servicios/:id" element={<ServicioDetalle />} />
+            <Route path="/cursos" element={<Cursos />} />
           </Routes>
         </main>
       </div>

@@ -7,7 +7,6 @@ const SobreMi = () => {
     <section className="min-h-screen pt-40 pb-20 px-6 bg-[#0a0a0a] text-white">
       <div className="max-w-7xl mx-auto">
         
-        {/* ENCABEZADO */}
         <div className="mb-16">
           <h1 className="text-7xl font-black uppercase italic leading-none">
             Sobre <span className="text-[#e63946]">mí</span>
@@ -17,10 +16,8 @@ const SobreMi = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* === COLUMNA IZQUIERDA: Bio y Educación === */}
           <div className="lg:col-span-7 space-y-10">
             
-            {/* BIO */}
             <div className="bg-zinc-900/50 border border-zinc-800 p-10 rounded-[30px] space-y-6 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/5 blur-3xl"></div>
               
@@ -43,13 +40,12 @@ const SobreMi = () => {
               </div>
             </div>
 
-            {/* EDUCACIÓN / TIMELINE */}
             <div className="bg-zinc-950 border border-zinc-800 p-10 rounded-[30px]">
               <h3 className="text-xl font-black uppercase italic text-white mb-8 flex items-center gap-3">
                 <FaGraduationCap className="text-[#e63946]" /> Formación
               </h3>
               <div className="border-l-2 border-zinc-800 pl-6 relative">
-                <div className="absolute w-4 h-4 bg-[#e63946] rounded-full -left-[9px] top-0 border-4 border-[#0a0a0a]"></div>
+                <div className="absolute w-4 h-4 bg-[#e63946] rounded-full -left-2.25 top-0 border-4 border-[#0a0a0a]"></div>
                 <h4 className="text-lg font-bold text-white">Técnico Superior en ASIR</h4>
                 <p className="text-[#e63946] text-sm font-bold uppercase tracking-widest mb-2">Actualmente cursando (1º Año)</p>
                 <p className="text-zinc-500 text-sm">Especialización en sistemas operativos, redes locales, bases de datos y lenguajes de marcas.</p>
@@ -58,14 +54,11 @@ const SobreMi = () => {
 
           </div>
 
-          {/* === COLUMNA DERECHA: Skills y Stats ASIR === */}
           <div className="lg:col-span-5 space-y-10">
             
-            {/* HERRAMIENTAS (¡Aquí están los iconos que faltaban!) */}
             <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[30px] shadow-xl">
               <h3 className="text-xl font-black uppercase italic text-[#e63946] mb-8">Stack Tecnológico</h3>
               
-              {/* Puesto en grid de 2 columnas para que quepan todos bien */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
@@ -100,7 +93,6 @@ const SobreMi = () => {
                   </div>
                 </div>
 
-                {/* AQUÍ ESTÁN LOS DOS NUEVOS */}
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
                   <FaDatabase className="text-3xl text-zinc-400" />
                   <div>
@@ -120,7 +112,6 @@ const SobreMi = () => {
               </div>
             </div>
 
-            {/* MÉTRICAS ASIR */}
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-2xl text-center flex flex-col justify-center">
                 <span className="text-4xl font-black text-[#e63946] mb-2">+15</span>

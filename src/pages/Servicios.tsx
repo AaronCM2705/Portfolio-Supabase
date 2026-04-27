@@ -12,7 +12,6 @@ interface Servicio {
 }
 
 const Servicios = () => {
-  // 2. CAMBIAMOS <any[]> POR <Servicio[]>
   const [servicios, setServicios] = useState<Servicio[]>([]);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Servicios = () => {
                 />
               </div>
               
-              <div className="p-8 flex flex-col flex-grow">
+              <div className="p-8 flex flex-col grow">
                 <h3 className="text-2xl font-black uppercase italic text-white mb-4">
                   {s.nombre}
                 </h3>
