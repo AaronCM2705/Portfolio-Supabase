@@ -11,8 +11,8 @@ const Navbar = () => {
     { name: 'Sobre mi', path: '/sobre-mi' },
     { name: 'Servicio', path: '/servicios' },
     { name: 'Proyecto', path: '/proyectos' },
+    { name: 'Cursos', path: '/cursos' },
     { name: 'Contacto', path: '/contacto' },
-    { name: 'Cursos', path: '/cursos' }
   ];
 
   return (

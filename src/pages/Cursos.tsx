@@ -71,7 +71,7 @@ const Cursos = () => {
                 {curso.institucion}
               </p>
               
-              <p className="text-zinc-500 text-sm italic mb-8 flex-grow">
+              <p className="text-zinc-500 text-sm italic mb-8 grow">
                 {curso.descripcion}
               </p>
 
