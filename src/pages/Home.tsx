@@ -71,7 +71,7 @@ const Home = () => {
             
             <div className="bg-zinc-950/60 backdrop-blur-md border-2 border-[#e63946] p-4 rounded-[40px] relative overflow-hidden group shadow-2xl">
               <img 
-                src="/computer_world.png" // Tu imagen técnica
+                src="/carrer-visual.png" // Tu imagen técnica
                 alt="Infrastructure Visualization" 
                 className="w-full h-full max-w-md aspect-square object-contain transition-transform group-hover:scale-105 duration-700"
               />
