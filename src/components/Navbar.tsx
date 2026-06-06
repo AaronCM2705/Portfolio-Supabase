@@ -2,7 +2,7 @@
 
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaTerminal } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const Navbar = () => {
@@ -23,18 +23,26 @@ const Navbar = () => {
     <nav className="bg-[#0a0a0a] bg-opacity-70 backdrop-blur-md border-b border-zinc-800 fixed w-full top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-28">
         
-        {/* === LOGO === */}
+        {/* === LOGO PREMIUM === */}
         <div className="shrink-0 z-50">
-          <Link to="/" className="flex items-center gap-4 group">
-            <img 
-              src="/8713478.png" // Tu logo rojo redondo
-              alt="Logo Aaron" 
-              className="h-16 lg:h-20 w-auto object-contain transition-transform group-hover:scale-105 duration-300" 
-            />
-            {/* Ocultamos el texto en pantallas medianas (tablets) para evitar el espachurramiento */}
-            <span className="hidden xl:block text-4xl font-black text-[#e63946] italic tracking-tighter">
-              AaronMCM
-            </span>
+          <Link to="/" className="flex items-center gap-3 md:gap-4 group">
+            {/* Icono de SysAdmin */}
+            <div className="relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-[#e63946] to-red-900 rounded-xl shadow-[0_0_15px_rgba(230,57,70,0.5)] group-hover:shadow-[0_0_25px_rgba(230,57,70,0.8)] transition-all duration-300 border border-white/10">
+              <div className="absolute inset-0 bg-black/20 rounded-xl pointer-events-none"></div>
+              <FaTerminal className="text-white text-xl md:text-2xl relative z-10 group-hover:scale-110 transition-transform duration-300" />
+              {/* Punto de estado verde (Servidor Activo) */}
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-[#0a0a0a] animate-pulse"></div>
+            </div>
+            
+            {/* Texto del Logo */}
+            <div className="flex flex-col justify-center">
+              <span className="text-2xl md:text-3xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 leading-none">
+                Aaron<span className="text-[#e63946]">MCM</span>
+              </span>
+              <span className="text-[10px] md:text-xs font-mono text-zinc-500 tracking-[0.2em] uppercase font-bold mt-1 group-hover:text-[#e63946] transition-colors">
+                SysAdmin &middot; Dev
+              </span>
+            </div>
           </Link>
         </div>
 

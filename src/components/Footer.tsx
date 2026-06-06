@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaCodeBranch } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaTerminal } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -14,12 +14,15 @@ const Footer = () => {
         {/* Lado izquierdo: Marca */}
         <div className="flex flex-col items-center md:items-start gap-4">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-[#e63946]/10 rounded-full flex items-center justify-center border border-[#e63946]/30 group-hover:bg-[#e63946]/20 transition-colors">
-              <FaCodeBranch className="text-[#e63946] text-xl" />
+            <div className="relative flex items-center justify-center w-10 h-10 bg-gradient-to-br from-[#e63946] to-red-900 rounded-lg shadow-[0_0_10px_rgba(230,57,70,0.5)] group-hover:shadow-[0_0_15px_rgba(230,57,70,0.8)] transition-all duration-300 border border-white/10">
+              <div className="absolute inset-0 bg-black/20 rounded-lg pointer-events-none"></div>
+              <FaTerminal className="text-white text-lg relative z-10 group-hover:scale-110 transition-transform duration-300" />
             </div>
-            <span className="text-2xl font-black text-white italic tracking-tighter">
-              AaronMCM
-            </span>
+            <div className="flex flex-col justify-center">
+              <span className="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 leading-none">
+                Aaron<span className="text-[#e63946]">MCM</span>
+              </span>
+            </div>
           </Link>
           <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 text-center md:text-left">
             Transformando complejidad en eficiencia.
