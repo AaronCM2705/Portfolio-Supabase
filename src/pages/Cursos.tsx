@@ -1,26 +1,16 @@
 // src/pages/Cursos.tsx
 
 import { useEffect, useState } from 'react';
-import { supabase } from '../supabase/supabaseClient';
+import { obtenerCursos, type Curso } from '../services/cursoService';
 import { motion } from 'framer-motion';
 import { FaCertificate, FaExternalLinkAlt, FaAward } from 'react-icons/fa';
-
-interface Curso {
-  id: number;
-  nombre: string;
-  institucion: string;
-  descripcion: string;
-  fecha: string;
-  certificado_url: string;
-  imagen_logo: string;
-}
 
 const Cursos = () => {
   const [cursos, setCursos] = useState<Curso[]>([]);
 
   useEffect(() => {
     const fetchCursos = async () => {
-      const { data } = await supabase.from('Cursos').select('*').order('id', { ascending: false });
+      const { data } = await obtenerCursos();
       if (data) setCursos(data);
     };
     fetchCursos();

@@ -1,13 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../supabase/supabaseClient';
-
-interface Proyecto {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  imagen_url: string;
-  link: string;
-}
+import { obtenerProyectos, type Proyecto } from '../services/proyectoService';
 
 const Proyectos = () => {
   const [proyectos, setProyectos] = useState<Proyecto[]>([]);
@@ -15,10 +7,10 @@ const Proyectos = () => {
 
   useEffect(() => {
     const fetchProyectos = async () => {
-      const { data, error } = await supabase.from('Proyectos').select('*');
+      const { data, error } = await obtenerProyectos();
       
       if (error) {
-        console.error("Error de conexión:", error.message);
+        console.error("Error de conexión:", error.message || error);
       } else {
         console.log("Datos cargados:", data);
         setProyectos(data || []);
