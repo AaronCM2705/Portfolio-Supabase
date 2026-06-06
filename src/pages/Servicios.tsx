@@ -51,7 +51,7 @@ const Servicios = () => {
                 <div className="mt-auto">
                   <Link 
                     to={`/servicios/${s.id}`} 
-                    className="inline-block bg-[#e63946] text-white px-6 py-2 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all"
+                    className="inline-block bg-[#e63946] text-white px-6 py-2 font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all"
                   >
                     Ver más detalles
                   </Link>

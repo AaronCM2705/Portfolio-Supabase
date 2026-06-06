@@ -18,7 +18,7 @@ const SobreMi = () => {
           
           <div className="lg:col-span-7 space-y-10">
             
-            <div className="bg-zinc-900/50 border border-zinc-800 p-10 rounded-[30px] space-y-6 shadow-2xl relative overflow-hidden">
+            <div className="bg-zinc-900/50 border border-zinc-800 p-10 rounded-3xl space-y-6 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/5 blur-3xl"></div>
               
               <h3 className="text-2xl font-black uppercase italic text-[#e63946]">Perfil Técnico</h3>
@@ -40,7 +40,7 @@ const SobreMi = () => {
               </div>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-800 p-10 rounded-[30px]">
+            <div className="bg-zinc-950 border border-zinc-800 p-10 rounded-3xl">
               <h3 className="text-xl font-black uppercase italic text-white mb-8 flex items-center gap-3">
                 <FaGraduationCap className="text-[#e63946]" /> Formación
               </h3>
@@ -56,7 +56,7 @@ const SobreMi = () => {
 
           <div className="lg:col-span-5 space-y-10">
             
-            <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[30px] shadow-xl">
+            <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-3xl shadow-xl">
               <h3 className="text-xl font-black uppercase italic text-[#e63946] mb-8">Stack Tecnológico</h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -64,48 +64,48 @@ const SobreMi = () => {
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
                   <FaLinux className="text-3xl text-zinc-400" />
                   <div>
-                    <p className="font-bold text-[10px] uppercase">Linux</p>
-                    <p className="text-[9px] text-zinc-500">Debian, Ubuntu</p>
+                    <p className="font-bold text-xs uppercase">Linux</p>
+                    <p className="text-xs text-zinc-500">Debian, Ubuntu</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
                   <FaWindows className="text-3xl text-zinc-400" />
                   <div>
-                    <p className="font-bold text-[10px] uppercase">Win Server</p>
-                    <p className="text-[9px] text-zinc-500">AD, GPO</p>
+                    <p className="font-bold text-xs uppercase">Win Server</p>
+                    <p className="text-xs text-zinc-500">AD, GPO</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
                   <FaNetworkWired className="text-3xl text-zinc-400" />
                   <div>
-                    <p className="font-bold text-[10px] uppercase">Redes Cisco</p>
-                    <p className="text-[9px] text-zinc-500">Routing, VLANs</p>
+                    <p className="font-bold text-xs uppercase">Redes Cisco</p>
+                    <p className="text-xs text-zinc-500">Routing, VLANs</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
                   <FaServer className="text-3xl text-zinc-400" />
                   <div>
-                    <p className="font-bold text-[10px] uppercase">Virtualización</p>
-                    <p className="text-[9px] text-zinc-500">Proxmox, VMware</p>
+                    <p className="font-bold text-xs uppercase">Virtualización</p>
+                    <p className="text-xs text-zinc-500">Proxmox, VMware</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
                   <FaDatabase className="text-3xl text-zinc-400" />
                   <div>
-                    <p className="font-bold text-[10px] uppercase">Bases de Datos</p>
-                    <p className="text-[9px] text-zinc-500">SQL, Supabase</p>
+                    <p className="font-bold text-xs uppercase">Bases de Datos</p>
+                    <p className="text-xs text-zinc-500">SQL, Supabase</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800 hover:border-[#e63946] transition-colors">
                   <FaReact className="text-3xl text-zinc-400" />
                   <div>
-                    <p className="font-bold text-[10px] uppercase">Frontend</p>
-                    <p className="text-[9px] text-zinc-500">React, Tailwind</p>
+                    <p className="font-bold text-xs uppercase">Frontend</p>
+                    <p className="text-xs text-zinc-500">React, Tailwind</p>
                   </div>
                 </div>
 
@@ -115,19 +115,19 @@ const SobreMi = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-2xl text-center flex flex-col justify-center">
                 <span className="text-4xl font-black text-[#e63946] mb-2">+15</span>
-                <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">VMs Desplegadas</span>
+                <span className="text-xs text-zinc-500 font-bold uppercase tracking-widest">VMs Desplegadas</span>
               </div>
               <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-2xl text-center flex flex-col justify-center">
                 <span className="text-4xl font-black text-[#e63946] mb-2">+100</span>
-                <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Horas de Homelab</span>
+                <span className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Horas de Homelab</span>
               </div>
               <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-2xl text-center flex flex-col justify-center">
                 <span className="text-4xl font-black text-[#e63946] mb-2">4</span>
-                <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Topologías de Red</span>
+                <span className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Topologías de Red</span>
               </div>
               <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-2xl text-center flex flex-col justify-center">
                 <span className="text-4xl font-black text-[#e63946] mb-2">2</span>
-                <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">S.O. Dominados</span>
+                <span className="text-xs text-zinc-500 font-bold uppercase tracking-widest">S.O. Dominados</span>
               </div>
             </div>
 

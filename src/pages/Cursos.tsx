@@ -45,7 +45,7 @@ const Cursos = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               // Micro-interacción: flotación al pasar el ratón
               whileHover={{ y: -10, border: '1px solid #e63946' }}
-              className="relative group bg-zinc-900/30 backdrop-blur-lg border border-zinc-800 p-10 rounded-[40px] flex flex-col h-full transition-all duration-700 shadow-2xl"
+              className="relative group bg-zinc-900/30 backdrop-blur-lg border border-zinc-800 p-10 rounded-3xl flex flex-col h-full transition-all duration-700 shadow-2xl"
             >
               {/* Brillo de acento rojo de fondo en la tarjeta */}
               <div className="absolute -inset-2 bg-[#e63946]/5 blur-3xl rounded-full group-hover:bg-[#e63946]/10 transition-colors"></div>
@@ -67,7 +67,7 @@ const Cursos = () => {
                 </div>
                 <div>
                   <p className="text-[#e63946] text-xs font-black uppercase tracking-widest leading-none mb-1">{curso.institucion}</p>
-                  <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-tighter">{curso.fecha}</p>
+                  <p className="text-zinc-500 text-xs font-bold uppercase tracking-tighter">{curso.fecha}</p>
                 </div>
               </div>
 
@@ -84,7 +84,7 @@ const Cursos = () => {
                 href={curso.certificado_url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group/btn relative w-full bg-white text-black py-4 rounded-2xl font-black uppercase text-[11px] tracking-widest overflow-hidden flex items-center justify-center gap-3 transition-all duration-300"
+                className="group/btn relative w-full bg-white text-black py-4 rounded-2xl font-black uppercase text-xs tracking-widest overflow-hidden flex items-center justify-center gap-3 transition-all duration-300"
               >
                 <span className="relative z-10">Validar Credencial</span>
                 <FaExternalLinkAlt className="relative z-10 text-xs" />

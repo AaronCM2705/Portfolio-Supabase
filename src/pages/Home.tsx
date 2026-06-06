@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <section className="min-h-screen pt-40 pb-20 px-6 bg-[#0a0a0a] text-white overflow-hidden relative flex items-center justify-center">
       {/* Círculo de brillo rojo de fondo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#e63946]/5 blur-[150px] rounded-full"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#e63946]/5 blur-3xl rounded-full"></div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -67,9 +67,9 @@ const Home = () => {
             className="relative flex items-center justify-center lg:justify-end"
           >
             {/* Brillo rojo detrás de la tarjeta */}
-            <div className="absolute -inset-4 bg-[#e63946]/20 blur-[100px] rounded-full group-hover:bg-[#e63946]/30 transition-colors"></div>
+            <div className="absolute -inset-4 bg-[#e63946]/20 blur-3xl rounded-full group-hover:bg-[#e63946]/30 transition-colors"></div>
             
-            <div className="bg-zinc-950/60 backdrop-blur-md border-2 border-[#e63946] p-4 rounded-[40px] relative overflow-hidden group shadow-2xl">
+            <div className="bg-zinc-950/60 backdrop-blur-md border-2 border-[#e63946] p-4 rounded-3xl relative overflow-hidden group shadow-2xl">
               <img 
                 src="/career-visual.png"
                 alt="Infrastructure Visualization" 
@@ -79,7 +79,7 @@ const Home = () => {
               {/* Overlay técnico ASIR (Segundo Vídeo) */}
               <div className="absolute bottom-6 left-6 bg-black/80 backdrop-blur-md border border-[#e63946]/50 p-4 rounded-xl flex items-center gap-3">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-ping"></div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 font-mono">
+                <span className="text-xs font-black uppercase tracking-widest text-zinc-300 font-mono">
                   Network Status: Secure
                 </span>
               </div>

@@ -84,7 +84,7 @@ const Contacto = () => {
                   <FaEnvelope size={24} />
                 </div>
                 <div>
-                  <p className="text-[10px] text-zinc-500 font-black uppercase tracking-widest mb-1">Correo Personal</p>
+                  <p className="text-xs text-zinc-500 font-black uppercase tracking-widest mb-1">Correo Personal</p>
                   <p className="text-zinc-200 font-bold text-lg group-hover:text-[#e63946] transition-colors">
                     {info?.email_personal || "email@ejemplo.com"}
                   </p>
@@ -99,7 +99,7 @@ const Contacto = () => {
                   </p>
                 </div>
                 
-                <div className="w-full h-72 rounded-[40px] overflow-hidden border-2 border-zinc-800 grayscale invert opacity-60 hover:grayscale-0 hover:invert-0 hover:opacity-100 transition-all duration-1000 shadow-2xl">
+                <div className="w-full h-72 rounded-3xl overflow-hidden border-2 border-zinc-800 grayscale invert opacity-60 hover:grayscale-0 hover:invert-0 hover:opacity-100 transition-all duration-1000 shadow-2xl">
                   {info?.google_maps_url ? (
                     <iframe 
                       src={info.google_maps_url} 
@@ -119,17 +119,17 @@ const Contacto = () => {
             </div>
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
+          <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-3xl shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/5 blur-3xl"></div>
             
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="flex items-center gap-2 mb-4 text-zinc-600 text-[10px] font-black uppercase tracking-widest">
+              <div className="flex items-center gap-2 mb-4 text-zinc-600 text-xs font-black uppercase tracking-widest">
                 <FaDatabase className="text-[#e63946]" /> 
                 Envío directo a Supabase DB
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Nombre</label>
+                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Nombre</label>
                 <input 
                   name="nombre" 
                   type="text" 
@@ -140,7 +140,7 @@ const Contacto = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Email</label>
+                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Email</label>
                 <input 
                   name="email" 
                   type="email" 
@@ -151,7 +151,7 @@ const Contacto = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Mensaje</label>
+                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Mensaje</label>
                 <textarea 
                   name="mensaje" 
                   rows={5} 

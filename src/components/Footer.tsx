@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#0f0f0f] border-t border-zinc-800 text-zinc-400 py-12 px-6 mt-20 relative overflow-hidden">
       {/* Detalle de neón en el fondo */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#e63946]/50 to-transparent"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#e63946]/50 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
         
@@ -50,7 +50,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase font-mono tracking-widest">
+      <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs uppercase font-mono tracking-widest">
         <p>&copy; {currentYear} Aaron Cruz Medrano. Todos los derechos reservados.</p>
         <p>1º ASIR - Lenguaje de Marcas</p>
       </div>

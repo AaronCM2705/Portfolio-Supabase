@@ -48,7 +48,7 @@ const ServicioDetalle = () => {
           <FaArrowLeft /> Volver a servicios
         </Link>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-zinc-950 p-8 md:p-12 rounded-[40px] border border-zinc-800 shadow-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-zinc-950 p-8 md:p-12 rounded-3xl border border-zinc-800 shadow-2xl">
           <div>
             <h1 className="text-5xl md:text-6xl font-black uppercase italic mb-6 leading-none">
               {servicio.nombre}
