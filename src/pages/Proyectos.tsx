@@ -33,18 +33,19 @@ const Proyectos = () => {
         ) : proyectos.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {proyectos.map((p) => (
-              <div key={p.id} className="bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden group hover:border-[#e63946] transition-all shadow-2xl">
-                <div className="h-64 overflow-hidden bg-zinc-900">
+              <div key={p.id} className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 rounded-3xl overflow-hidden group hover:border-[#e63946]/80 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(230,57,70,0.2)] relative">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 pointer-events-none"></div>
+                <div className="h-72 overflow-hidden bg-zinc-950 relative">
                   <img 
                     src={p.imagen_url} 
                     alt={p.nombre} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100" 
                   />
                 </div>
-                <div className="p-8 text-white">
-                  <h3 className="text-3xl font-black uppercase italic mb-4">{p.nombre}</h3>
-                  <p className="text-zinc-500 mb-8 text-sm leading-relaxed">{p.descripcion}</p>
-                  <a href={p.link} target="_blank" rel="noreferrer" className="inline-block border-2 border-[#e63946] text-[#e63946] px-8 py-2 font-black uppercase text-xs tracking-widest hover:bg-[#e63946] hover:text-white transition-all">
+                <div className="p-8 relative z-20 -mt-20">
+                  <h3 className="text-3xl font-black uppercase italic mb-3 text-white drop-shadow-lg">{p.nombre}</h3>
+                  <p className="text-zinc-300 mb-8 text-sm leading-relaxed drop-shadow-md">{p.descripcion}</p>
+                  <a href={p.link} target="_blank" rel="noreferrer" className="inline-block border border-[#e63946]/50 bg-black/50 backdrop-blur-md text-[#e63946] px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-[#e63946] hover:text-white hover:border-[#e63946] transition-all rounded-xl">
                     Ver proyecto
                   </a>
                 </div>
