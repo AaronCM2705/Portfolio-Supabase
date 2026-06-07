@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
-import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaTelegramPlane } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 
 interface InfoContacto {
   email_personal: string;
