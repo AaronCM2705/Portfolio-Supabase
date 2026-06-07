@@ -41,11 +41,36 @@ const Contacto = () => {
     const email = formData.get('email') as string;
     const mensaje = formData.get('mensaje') as string;
 
+    // 1. Guardar en la base de datos de Supabase
     const { error } = await supabase
       .from('Mensaje_Contacto')
       .insert([{ nombre, email, mensaje }]);
 
     if (!error) {
+      // 2. Alerta en tiempo real por Telegram
+      try {
+        const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+        const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+        
+        if (botToken && chatId) {
+          const telegramText = `🚀 *NUEVO MENSAJE DEL PORTFOLIO* 🚀\n\n👤 *Nombre:* ${nombre}\n📧 *Email:* ${email}\n\n💬 *Mensaje:*\n_${mensaje}_`;
+          
+          await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: telegramText,
+              parse_mode: 'Markdown'
+            })
+          });
+        } else {
+          console.warn("Faltan las credenciales de Telegram en las variables de entorno.");
+        }
+      } catch (tgError) {
+        console.error("Error enviando alerta a Telegram:", tgError);
+      }
+
       setStatus('¡Mensaje enviado con éxito! Te responderé pronto.');
       (e.target as HTMLFormElement).reset();
     } else {
