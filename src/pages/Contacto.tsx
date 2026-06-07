@@ -57,15 +57,15 @@ const Contacto = () => {
         const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
         
         if (botToken && chatId) {
-          const telegramText = `🚀 *NUEVO MENSAJE DEL PORTFOLIO* 🚀\n\n👤 *Nombre:* ${nombre}\n📧 *Email:* ${email}\n📌 *Asunto:* ${asunto}\n\n💬 *Mensaje:*\n_${mensajeRaw}_`;
+          // Sin parse_mode para evitar fallos de sintaxis con lo que escriba el usuario
+          const telegramText = `🚀 NUEVO MENSAJE DEL PORTFOLIO 🚀\n\n👤 Nombre: ${nombre}\n📧 Email: ${email}\n📌 Asunto: ${asunto}\n\n💬 Mensaje:\n${mensajeRaw}`;
           
           await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               chat_id: chatId,
-              text: telegramText,
-              parse_mode: 'Markdown'
+              text: telegramText
             })
           });
         } else {
@@ -170,24 +170,33 @@ const Contacto = () => {
             </div>
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 p-10 rounded-3xl shadow-2xl relative overflow-hidden">
+          <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/5 blur-3xl"></div>
             
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="flex items-center gap-2 mb-4 text-zinc-600 text-xs font-black uppercase tracking-widest">
-                <FaDatabase className="text-[#e63946]" /> 
-                Envío directo a Supabase DB
-              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Nombre</label>
+                  <input 
+                    name="nombre" 
+                    type="text" 
+                    required 
+                    className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800" 
+                    placeholder="Ej: Juan Pérez"
+                  />
+                </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Nombre</label>
-                <input 
-                  name="nombre" 
-                  type="text" 
-                  required 
-                  className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800" 
-                  placeholder="Ej: Juan Pérez"
-                />
+                <div className="space-y-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Email</label>
+                  <input 
+                    name="email" 
+                    type="email" 
+                    required 
+                    className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800" 
+                    placeholder="ejemplo@correo.com"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -211,21 +220,10 @@ const Contacto = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Email</label>
-                <input 
-                  name="email" 
-                  type="email" 
-                  required 
-                  className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800" 
-                  placeholder="ejemplo@correo.com"
-                />
-              </div>
-
-              <div className="space-y-2">
                 <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Mensaje</label>
                 <textarea 
                   name="mensaje" 
-                  rows={5} 
+                  rows={4} 
                   required 
                   className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white resize-none placeholder:text-zinc-800"
                   placeholder="¿En qué puedo ayudarte?"
@@ -234,7 +232,7 @@ const Contacto = () => {
 
               <button 
                 type="submit" 
-                className="w-full bg-[#e63946] py-5 rounded-2xl font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#e63946]/20 group"
+                className="w-full bg-[#e63946] py-4 rounded-2xl font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#e63946]/20 group"
               >
                 Enviar Mensaje 
                 <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
