@@ -76,12 +76,29 @@ const Home = () => {
                 className="w-full h-full max-w-md aspect-square object-cover rounded-2xl transition-transform group-hover:scale-105 duration-700 opacity-90"
               />
               
-              {/* Overlay técnico ASIR (Segundo Vídeo) */}
-              <div className="absolute bottom-6 left-6 bg-black/80 backdrop-blur-md border border-[#e63946]/50 p-4 rounded-xl flex items-center gap-3">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-ping"></div>
-                <span className="text-xs font-black uppercase tracking-widest text-zinc-300 font-mono">
-                  Network Status: Secure
-                </span>
+              {/* Overlay técnico ASIR (Mejorado Premium) */}
+              <div className="absolute bottom-6 left-6 right-6 sm:right-auto bg-zinc-950/85 backdrop-blur-2xl border border-zinc-800/80 p-4 rounded-2xl flex items-center gap-6 shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-green-500 shadow-[0_0_15px_#22c55e]"></div>
+                
+                <div className="flex items-center gap-4">
+                  <div className="relative flex items-center justify-center">
+                    <div className="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_12px_#22c55e]"></div>
+                    <div className="absolute w-4 h-4 bg-green-500 rounded-full animate-ping opacity-60"></div>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[9px] text-zinc-500 font-mono uppercase tracking-widest font-bold mb-0.5">Status</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-zinc-200 font-sans">
+                      Red Segura
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="h-8 w-px bg-zinc-800"></div>
+                
+                <div className="flex flex-col items-start">
+                  <span className="text-[9px] text-zinc-500 font-mono uppercase tracking-widest font-bold mb-0.5">Ping</span>
+                  <span className="text-xs font-black text-green-400 font-mono">14ms</span>
+                </div>
               </div>
             </div>
           </motion.div>
