@@ -45,7 +45,7 @@ const Footer = () => {
             <a href="https://www.linkedin.com/in/aaron-cruz-medrano-b83b11386" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
               <FaLinkedin className="text-xl" />
             </a>
-            <a href="mailto:tuemail@ejemplo.com" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
+            <a href="mailto:aaroncm2705@gmail.com" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
               <FaEnvelope className="text-xl" />
             </a>
           </div>
