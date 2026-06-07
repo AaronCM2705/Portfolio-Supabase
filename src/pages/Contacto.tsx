@@ -77,8 +77,10 @@ const Contacto = () => {
 
             <div className="space-y-6">
               <a 
-                href={`mailto:${info?.email_personal}`} 
-                className="group flex items-center gap-4 bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl hover:border-[#e63946] transition-all duration-500 shadow-xl"
+                href={info?.email_personal ? `https://mail.google.com/mail/?view=cm&fs=1&to=${info.email_personal}` : "#"} 
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-4 bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl hover:border-[#e63946] transition-all duration-500 shadow-xl cursor-pointer"
               >
                 <div className="bg-[#e63946] p-4 rounded-xl text-white shadow-[0_0_15px_rgba(230,57,70,0.4)]">
                   <FaEnvelope size={24} />
@@ -88,6 +90,7 @@ const Contacto = () => {
                   <p className="text-zinc-200 font-bold text-lg group-hover:text-[#e63946] transition-colors">
                     {info?.email_personal || "email@ejemplo.com"}
                   </p>
+                  <p className="text-[10px] text-zinc-600 mt-1 uppercase tracking-widest font-bold group-hover:text-zinc-400">Abrir en Gmail</p>
                 </div>
               </a>
 
