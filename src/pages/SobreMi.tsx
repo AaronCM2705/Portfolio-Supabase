@@ -80,17 +80,19 @@ const SobreMi = () => {
           </div>
 
           {/* Bento Item 4: Stats (Ocupa 1 columna) */}
-          <div className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-8 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300 flex items-center justify-center">
-            <div className="grid grid-cols-2 gap-4 w-full relative z-10">
+          <div className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300 flex flex-col">
+            <h3 className="text-2xl font-black uppercase italic text-[#e63946] mb-8 relative z-10">Métricas</h3>
+            
+            <div className="grid grid-cols-2 gap-4 w-full relative z-10 grow">
               {[
                 { val: "+15", label: "VMs Desplegadas" },
                 { val: "+100", label: "Horas Homelab" },
-                { val: "4", label: "Topologías Red" },
-                { val: "2", label: "S.O. Dominados" }
+                { val: "+4", label: "Topologías Red" },
+                { val: "+2", label: "S.O. Dominados" }
               ].map((stat, idx) => (
-                <div key={idx} className="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800/50 p-4 rounded-2xl text-center flex flex-col justify-center hover:border-[#e63946] hover:bg-[#e63946]/5 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all">
-                  <span className="text-3xl font-black text-[#e63946] mb-2">{stat.val}</span>
-                  <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">{stat.label}</span>
+                <div key={idx} className="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800/50 p-4 rounded-2xl text-center flex flex-col justify-center items-center group-hover:border-zinc-700 transition-all">
+                  <span className="text-4xl font-black text-white mb-2">{stat.val}</span>
+                  <span className="text-[10px] text-[#e63946] font-black uppercase tracking-widest">{stat.label}</span>
                 </div>
               ))}
             </div>
