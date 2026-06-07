@@ -13,6 +13,7 @@ const Contacto = () => {
   const [info, setInfo] = useState<InfoContacto | null>(null);
   const [status, setStatus] = useState('');
   const [cargando, setCargando] = useState(true);
+  const [asunto, setAsunto] = useState('');
 
   useEffect(() => {
     const fetchInfo = async () => {
@@ -39,11 +40,16 @@ const Contacto = () => {
     const formData = new FormData(e.currentTarget);
     const nombre = formData.get('nombre') as string;
     const email = formData.get('email') as string;
-    const asunto = formData.get('asunto') as string;
+    const asuntoSeleccionado = formData.get('asunto') as string;
     const mensajeRaw = formData.get('mensaje') as string;
 
-    // Concatenamos el asunto al mensaje para no tener que alterar la base de datos
-    const mensajeFinal = `[${asunto}]\n${mensajeRaw}`;
+    let mensajeFinal = `[${asuntoSeleccionado}]\n${mensajeRaw}`;
+    
+    if (asuntoSeleccionado === 'Reserva de Cita') {
+      const fecha = formData.get('fecha') as string;
+      const hora = formData.get('hora') as string;
+      mensajeFinal = `[${asuntoSeleccionado} - ${fecha} ${hora}]\n${mensajeRaw}`;
+    }
 
     // 1. Guardar en la base de datos de Supabase
     const { error } = await supabase
@@ -58,7 +64,13 @@ const Contacto = () => {
         
         if (botToken && chatId) {
           // Sin parse_mode para evitar fallos de sintaxis con lo que escriba el usuario
-          const telegramText = `🚀 NUEVO MENSAJE DEL PORTFOLIO 🚀\n\n👤 Nombre: ${nombre}\n📧 Email: ${email}\n📌 Asunto: ${asunto}\n\n💬 Mensaje:\n${mensajeRaw}`;
+          let telegramText = `🚀 NUEVO MENSAJE DEL PORTFOLIO 🚀\n\n👤 Nombre: ${nombre}\n📧 Email: ${email}\n📌 Asunto: ${asuntoSeleccionado}`;
+          
+          if (asuntoSeleccionado === 'Reserva de Cita') {
+            telegramText += `\n📅 Fecha: ${formData.get('fecha')}\n⏰ Hora: ${formData.get('hora')}`;
+          }
+          
+          telegramText += `\n\n💬 Mensaje:\n${mensajeRaw}`;
           
           await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
@@ -77,6 +89,7 @@ const Contacto = () => {
 
       setStatus('¡Mensaje enviado con éxito! Te responderé pronto.');
       (e.target as HTMLFormElement).reset();
+      setAsunto('');
     } else {
       console.error("Error al guardar mensaje:", error.message);
       setStatus('Error al enviar el mensaje. Revisa la conexión.');
@@ -123,25 +136,6 @@ const Contacto = () => {
                 </div>
               </a>
 
-              {/* Nueva tarjeta de Telegram Directo */}
-              <a 
-                href="https://t.me/PortfolioCitas_bot" 
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-4 bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl hover:border-[#0088cc] transition-all duration-500 shadow-xl cursor-pointer"
-              >
-                <div className="bg-[#0088cc] p-4 rounded-xl text-white shadow-[0_0_15px_rgba(0,136,204,0.4)]">
-                  <FaTelegramPlane size={24} />
-                </div>
-                <div>
-                  <p className="text-xs text-zinc-500 font-black uppercase tracking-widest mb-1">Bot de Telegram</p>
-                  <p className="text-zinc-200 font-bold text-lg group-hover:text-[#0088cc] transition-colors">
-                    @PortfolioCitas_bot
-                  </p>
-                  <p className="text-[10px] text-[#0088cc] mt-1 uppercase tracking-widest font-bold opacity-80 group-hover:opacity-100">Respuestas en tiempo real</p>
-                </div>
-              </a>
-
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-2">
                   <FaMapMarkerAlt className="text-[#e63946] text-xl" />
@@ -173,45 +167,47 @@ const Contacto = () => {
           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/5 blur-3xl"></div>
             
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+            <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Nombre</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Nombre</label>
                   <input 
                     name="nombre" 
                     type="text" 
                     required 
-                    className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800" 
+                    className="w-full bg-black border border-zinc-800 p-3 rounded-xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800 text-sm" 
                     placeholder="Ej: Juan Pérez"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Email</label>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Email</label>
                   <input 
                     name="email" 
                     type="email" 
                     required 
-                    className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800" 
+                    className="w-full bg-black border border-zinc-800 p-3 rounded-xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800 text-sm" 
                     placeholder="ejemplo@correo.com"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Asunto</label>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Asunto</label>
                 <div className="relative">
                   <select 
                     name="asunto" 
                     required
-                    className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white appearance-none cursor-pointer"
+                    value={asunto}
+                    onChange={(e) => setAsunto(e.target.value)}
+                    className={`w-full bg-black border border-zinc-800 p-3 rounded-xl outline-none focus:border-[#e63946] transition-all text-sm appearance-none cursor-pointer ${asunto === '' ? 'text-zinc-500' : 'text-white'}`}
                   >
-                    <option value="" disabled selected hidden>Selecciona el motivo de tu mensaje...</option>
-                    <option value="Propuesta Laboral" className="bg-zinc-900">💼 Propuesta Laboral</option>
-                    <option value="Reserva de Cita" className="bg-zinc-900">📅 Reserva de Cita</option>
-                    <option value="Soporte Técnico / ASIR" className="bg-zinc-900">💻 Soporte Técnico / ASIR</option>
-                    <option value="Otro" className="bg-zinc-900">❓ Otro</option>
+                    <option value="" disabled hidden>Selecciona el motivo de tu mensaje...</option>
+                    <option value="Propuesta Laboral" className="bg-zinc-900 text-white">💼 Propuesta Laboral</option>
+                    <option value="Reserva de Cita" className="bg-zinc-900 text-white">📅 Reserva de Cita</option>
+                    <option value="Soporte Técnico / ASIR" className="bg-zinc-900 text-white">💻 Soporte Técnico / ASIR</option>
+                    <option value="Otro" className="bg-zinc-900 text-white">❓ Otro</option>
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500 text-xs font-black">
                     ▼
@@ -219,20 +215,43 @@ const Contacto = () => {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Mensaje</label>
+              {asunto === 'Reserva de Cita' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 animate-fade-in">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Fecha Deseada</label>
+                    <input 
+                      name="fecha" 
+                      type="date" 
+                      required 
+                      className="w-full bg-black border border-zinc-800 p-3 rounded-xl outline-none focus:border-[#e63946] transition-all text-white text-sm" 
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Hora (Aprox)</label>
+                    <input 
+                      name="hora" 
+                      type="time" 
+                      required 
+                      className="w-full bg-black border border-zinc-800 p-3 rounded-xl outline-none focus:border-[#e63946] transition-all text-white text-sm" 
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 pl-2">Tu Mensaje</label>
                 <textarea 
                   name="mensaje" 
                   rows={4} 
                   required 
-                  className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white resize-none placeholder:text-zinc-800"
+                  className="w-full bg-black border border-zinc-800 p-3 rounded-xl outline-none focus:border-[#e63946] transition-all text-white resize-none placeholder:text-zinc-800 text-sm"
                   placeholder="¿En qué puedo ayudarte?"
                 ></textarea>
               </div>
 
               <button 
                 type="submit" 
-                className="w-full bg-[#e63946] py-4 rounded-2xl font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#e63946]/20 group"
+                className="w-full bg-[#e63946] py-3.5 rounded-xl font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#e63946]/20 group mt-2"
               >
                 Enviar Mensaje 
                 <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
