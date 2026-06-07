@@ -69,7 +69,7 @@ const ServicioDetalle = () => {
             </div>
           </div>
           
-          <div className="rounded-3xl overflow-hidden border-2 border-zinc-800 shadow-2xl h-full min-h-75">
+          <div className="rounded-3xl overflow-hidden border-2 border-zinc-800 shadow-2xl h-full min-h-80">
             <img 
               src={servicio.imagen_url} 
               alt={servicio.nombre} 
