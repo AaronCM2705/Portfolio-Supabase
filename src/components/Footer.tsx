@@ -39,10 +39,10 @@ const Footer = () => {
         {/* Lado derecho: Redes y Contacto */}
         <div className="flex flex-col items-center md:items-end gap-6">
           <div className="flex gap-4">
-            <a href="https://github.com/tu-usuario" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
+            <a href="https://github.com/AaronCM2705" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
               <FaGithub className="text-xl" />
             </a>
-            <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
+            <a href="https://www.linkedin.com/in/aaron-cruz-medrano-b83b11386" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
               <FaLinkedin className="text-xl" />
             </a>
             <a href="mailto:tuemail@ejemplo.com" className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-[#e63946] hover:text-white transition-all shadow-lg hover:-translate-y-1">
