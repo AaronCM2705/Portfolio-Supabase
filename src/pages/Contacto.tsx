@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
-import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaDatabase } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaDatabase, FaTelegramPlane } from 'react-icons/fa';
 
 interface InfoContacto {
   email_personal: string;
@@ -39,12 +39,16 @@ const Contacto = () => {
     const formData = new FormData(e.currentTarget);
     const nombre = formData.get('nombre') as string;
     const email = formData.get('email') as string;
-    const mensaje = formData.get('mensaje') as string;
+    const asunto = formData.get('asunto') as string;
+    const mensajeRaw = formData.get('mensaje') as string;
+
+    // Concatenamos el asunto al mensaje para no tener que alterar la base de datos
+    const mensajeFinal = `[${asunto}]\n${mensajeRaw}`;
 
     // 1. Guardar en la base de datos de Supabase
     const { error } = await supabase
       .from('Mensaje_Contacto')
-      .insert([{ nombre, email, mensaje }]);
+      .insert([{ nombre, email, mensaje: mensajeFinal }]);
 
     if (!error) {
       // 2. Alerta en tiempo real por Telegram
@@ -53,7 +57,7 @@ const Contacto = () => {
         const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
         
         if (botToken && chatId) {
-          const telegramText = `🚀 *NUEVO MENSAJE DEL PORTFOLIO* 🚀\n\n👤 *Nombre:* ${nombre}\n📧 *Email:* ${email}\n\n💬 *Mensaje:*\n_${mensaje}_`;
+          const telegramText = `🚀 *NUEVO MENSAJE DEL PORTFOLIO* 🚀\n\n👤 *Nombre:* ${nombre}\n📧 *Email:* ${email}\n📌 *Asunto:* ${asunto}\n\n💬 *Mensaje:*\n_${mensajeRaw}_`;
           
           await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
@@ -119,6 +123,25 @@ const Contacto = () => {
                 </div>
               </a>
 
+              {/* Nueva tarjeta de Telegram Directo */}
+              <a 
+                href="https://t.me/PortfolioCitas_bot" 
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-4 bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl hover:border-[#0088cc] transition-all duration-500 shadow-xl cursor-pointer"
+              >
+                <div className="bg-[#0088cc] p-4 rounded-xl text-white shadow-[0_0_15px_rgba(0,136,204,0.4)]">
+                  <FaTelegramPlane size={24} />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-500 font-black uppercase tracking-widest mb-1">Bot de Telegram</p>
+                  <p className="text-zinc-200 font-bold text-lg group-hover:text-[#0088cc] transition-colors">
+                    @PortfolioCitas_bot
+                  </p>
+                  <p className="text-[10px] text-[#0088cc] mt-1 uppercase tracking-widest font-bold opacity-80 group-hover:opacity-100">Respuestas en tiempo real</p>
+                </div>
+              </a>
+
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-2">
                   <FaMapMarkerAlt className="text-[#e63946] text-xl" />
@@ -165,6 +188,26 @@ const Contacto = () => {
                   className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white placeholder:text-zinc-800" 
                   placeholder="Ej: Juan Pérez"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase tracking-widest text-zinc-500 pl-2">Asunto</label>
+                <div className="relative">
+                  <select 
+                    name="asunto" 
+                    required
+                    className="w-full bg-black border border-zinc-800 p-4 rounded-2xl outline-none focus:border-[#e63946] transition-all text-white appearance-none cursor-pointer"
+                  >
+                    <option value="" disabled selected hidden>Selecciona el motivo de tu mensaje...</option>
+                    <option value="Propuesta Laboral" className="bg-zinc-900">💼 Propuesta Laboral</option>
+                    <option value="Reserva de Cita" className="bg-zinc-900">📅 Reserva de Cita</option>
+                    <option value="Soporte Técnico / ASIR" className="bg-zinc-900">💻 Soporte Técnico / ASIR</option>
+                    <option value="Otro" className="bg-zinc-900">❓ Otro</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500 text-xs font-black">
+                    ▼
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-2">
