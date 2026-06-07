@@ -12,9 +12,9 @@ const Navbar = () => {
   const links = [
     { name: 'Inicio', path: '/' },
     { name: 'Sobre mi', path: '/sobre-mi' },
-    { name: 'Cursos', path: '/cursos' }, // <--- AÑADIDO
-    { name: 'Servicio', path: '/servicios' },
-    { name: 'Proyecto', path: '/proyectos' },
+    { name: 'Cursos', path: '/cursos' },
+    { name: 'Servicios', path: '/servicios' },
+    { name: 'Proyectos', path: '/proyectos' },
     { name: 'Contacto', path: '/contacto' },
   ];
 
@@ -64,7 +64,7 @@ const Navbar = () => {
           ))}
           
           <a 
-            href="/CV_AARON CRUZ MEDRANO_1ºASIR (1).pdf" 
+            href="/CV_Aaron_Cruz_Medrano.pdf" 
             download 
             className="whitespace-nowrap border-2 border-white px-6 py-3 text-xs font-black uppercase hover:bg-[#e63946] hover:border-[#e63946] hover:text-white transition-all duration-300 shadow-lg shadow-white/5"
           >
@@ -98,7 +98,7 @@ const Navbar = () => {
             </Link>
           ))}
           <a 
-            href="/CV_AARON CRUZ MEDRANO_1ºASIR (1).pdf" 
+            href="/CV_Aaron_Cruz_Medrano.pdf" 
             download 
             className="bg-[#e63946] text-white text-center py-4 font-black uppercase text-sm rounded-lg"
           >
