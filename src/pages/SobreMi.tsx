@@ -85,10 +85,10 @@ const SobreMi = () => {
             
             <div className="grid grid-cols-2 gap-4 w-full relative z-10 grow">
               {[
-                { val: "+15", label: "VMs Desplegadas" },
-                { val: "+100", label: "Horas Homelab" },
-                { val: "+4", label: "Topologías Red" },
-                { val: "+2", label: "S.O. Dominados" }
+                { val: "1º", label: "ASIR" },
+                { val: "+5", label: "Proyectos" },
+                { val: "+8", label: "Tecnologías" },
+                { val: "100%", label: "Motivación" }
               ].map((stat, idx) => (
                 <div key={idx} className="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800/50 p-4 rounded-2xl text-center flex flex-col justify-center items-center group-hover:border-zinc-700 transition-all">
                   <span className="text-4xl font-black text-white mb-2">{stat.val}</span>
