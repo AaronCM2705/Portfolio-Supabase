@@ -70,11 +70,60 @@ const Home = () => {
             <div className="absolute -inset-4 bg-[#e63946]/20 blur-3xl rounded-full group-hover:bg-[#e63946]/30 transition-colors"></div>
             
             <div className="bg-zinc-950/60 backdrop-blur-md border-2 border-[#e63946] p-4 rounded-3xl relative overflow-hidden group shadow-2xl">
-              <img 
-                src="/cyber_server_red.png"
-                alt="Cyber Server Infrastructure" 
-                className="w-full h-full max-w-md aspect-square object-cover rounded-2xl transition-transform group-hover:scale-105 duration-700 opacity-90"
-              />
+              {/* Consola Interactiva Simulada */}
+              <div className="w-full h-80 max-w-md bg-[#0a0a0a] rounded-xl border border-zinc-800 shadow-[0_0_30px_rgba(230,57,70,0.15)] flex flex-col overflow-hidden group-hover:border-[#e63946]/50 transition-colors duration-500">
+                {/* Cabecera de la terminal */}
+                <div className="bg-zinc-900 px-4 py-2 flex items-center gap-2 border-b border-zinc-800">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                  <span className="ml-4 text-[10px] text-zinc-500 font-mono tracking-widest">root@aaron-server:~</span>
+                </div>
+                {/* Cuerpo de la terminal con texto animado */}
+                <div className="p-5 font-mono text-xs flex flex-col gap-2 relative h-full">
+                  <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay pointer-events-none"></div>
+                  
+                  <div className="flex gap-2 text-zinc-300">
+                    <span className="text-[#e63946]">$</span>
+                    <span className="typing-effect-1 overflow-hidden whitespace-nowrap border-r-2 border-transparent">./init_sysadmin_profile.sh</span>
+                  </div>
+                  
+                  <div className="flex flex-col gap-1 text-zinc-500 animate-[fadeIn_0s_ease_1.5s_forwards] opacity-0">
+                    <span>[ OK ] Loading OS modules...</span>
+                    <span>[ OK ] Mounting virtual volumes...</span>
+                    <span>[ OK ] Connecting to database...</span>
+                  </div>
+
+                  <div className="flex gap-2 text-green-400 mt-2 animate-[fadeIn_0s_ease_3s_forwards] opacity-0">
+                    <span className="text-zinc-500">&gt;</span>
+                    <span>SYSTEM ONLINE. ALL SERVICES RUNNING.</span>
+                  </div>
+
+                  <div className="flex gap-2 text-zinc-300 mt-auto animate-[fadeIn_0s_ease_3.5s_forwards] opacity-0">
+                    <span className="text-[#e63946]">$</span>
+                    <span className="animate-pulse">_</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Estilos CSS para la animación de la terminal insertados localmente */}
+              <style dangerouslySetInnerHTML={{__html: `
+                .typing-effect-1 {
+                  animation: typing 1.5s steps(30, end) forwards, blink-caret .75s step-end infinite;
+                  width: 0;
+                }
+                @keyframes typing {
+                  from { width: 0 }
+                  to { width: 100% }
+                }
+                @keyframes blink-caret {
+                  from, to { border-color: transparent }
+                  50% { border-color: white; }
+                }
+                @keyframes fadeIn {
+                  to { opacity: 1; }
+                }
+              `}} />
               
               {/* Overlay técnico ASIR (Mejorado Premium) */}
               <div className="absolute bottom-6 left-6 right-6 sm:right-auto bg-zinc-950/85 backdrop-blur-2xl border border-zinc-800/80 p-4 rounded-2xl flex items-center gap-6 shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-hidden">
