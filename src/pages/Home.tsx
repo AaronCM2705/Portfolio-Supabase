@@ -25,9 +25,9 @@ const Home = () => {
                   <FaTerminal className="animate-pulse" /> Status: System Online
                 </span>
                 
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase italic leading-none tracking-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase italic leading-none tracking-tight">
                   HOLA, SOY <br />
-                  <span className="text-[#e63946] relative">
+                  <span className="text-[#e63946] relative inline-block">
                     <Typewriter
                       options={{
                         strings: ['AARON', 'ESPECIALISTA', 'SYSADMIN'],
