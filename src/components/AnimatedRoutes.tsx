@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 // Pages
 import Home from '../pages/Home';
