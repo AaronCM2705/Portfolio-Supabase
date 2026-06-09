@@ -27,7 +27,7 @@ const Navbar = () => {
         <div className="shrink-0 z-50">
           <Link to="/" className="flex items-center gap-3 md:gap-4 group">
             {/* Icono de SysAdmin */}
-            <div className="relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-[#e63946] to-red-900 rounded-xl shadow-[0_0_15px_rgba(230,57,70,0.5)] group-hover:shadow-[0_0_25px_rgba(230,57,70,0.8)] transition-all duration-300 border border-white/10">
+            <div className="relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-linear-to-br from-[#e63946] to-red-900 rounded-xl shadow-[0_0_15px_rgba(230,57,70,0.5)] group-hover:shadow-[0_0_25px_rgba(230,57,70,0.8)] transition-all duration-300 border border-white/10">
               <div className="absolute inset-0 bg-black/20 rounded-xl pointer-events-none"></div>
               <FaTerminal className="text-white text-xl md:text-2xl relative z-10 group-hover:scale-110 transition-transform duration-300" />
               {/* Punto de estado verde (Servidor Activo) */}
@@ -36,7 +36,7 @@ const Navbar = () => {
             
             {/* Texto del Logo */}
             <div className="flex flex-col justify-center">
-              <span className="text-2xl md:text-3xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 leading-none">
+              <span className="text-2xl md:text-3xl font-black italic tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-white to-zinc-400 leading-none">
                 Aaron<span className="text-[#e63946]">MCM</span>
               </span>
               <span className="text-[10px] md:text-xs font-mono text-zinc-500 tracking-[0.2em] uppercase font-bold mt-1 group-hover:text-[#e63946] transition-colors">
