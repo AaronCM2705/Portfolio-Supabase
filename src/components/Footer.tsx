@@ -7,19 +7,19 @@ const Footer = () => {
   return (
     <footer className="bg-[#0f0f0f] border-t border-zinc-800 text-zinc-400 py-12 px-6 mt-20 relative overflow-hidden">
       {/* Detalle de neón en el fondo */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#e63946]/50 to-transparent"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-linear-to-r from-transparent via-[#e63946]/50 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
         
         {/* Lado izquierdo: Marca */}
         <div className="flex flex-col items-center md:items-start gap-4">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative flex items-center justify-center w-10 h-10 bg-gradient-to-br from-[#e63946] to-red-900 rounded-lg shadow-[0_0_10px_rgba(230,57,70,0.5)] group-hover:shadow-[0_0_15px_rgba(230,57,70,0.8)] transition-all duration-300 border border-white/10">
+            <div className="relative flex items-center justify-center w-10 h-10 bg-linear-to-br from-[#e63946] to-red-900 rounded-lg shadow-[0_0_10px_rgba(230,57,70,0.5)] group-hover:shadow-[0_0_15px_rgba(230,57,70,0.8)] transition-all duration-300 border border-white/10">
               <div className="absolute inset-0 bg-black/20 rounded-lg pointer-events-none"></div>
               <FaTerminal className="text-white text-lg relative z-10 group-hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="flex flex-col justify-center">
-              <span className="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 leading-none">
+              <span className="text-2xl font-black italic tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-white to-zinc-400 leading-none">
                 Aaron<span className="text-[#e63946]">MCM</span>
               </span>
             </div>
