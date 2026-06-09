@@ -11,7 +11,7 @@ export interface Proyecto {
 }
 
 // Función ASÍNCRONA que se conecta a Supabase para obtener el listado de proyectos.
-export const obtenerProyectos = async (): Promise<{ data: Proyecto[] | null; error: any }> => {
+export const obtenerProyectos = async (): Promise<{ data: Proyecto[] | null; error: Error | null }> => {
   try {
     // Aquí ejecutamos la consulta equivalente en SQL a: SELECT * FROM Proyectos;
     // await hace que el código "espere" a que el servidor de Supabase responda.
@@ -23,6 +23,6 @@ export const obtenerProyectos = async (): Promise<{ data: Proyecto[] | null; err
   } catch (error) {
     // Si hay un fallo de red o la tabla no existe, capturamos el error
     console.error('Error obteniendo proyectos desde Supabase:', error);
-    return { data: null, error };
+    return { data: null, error: error as Error };
   }
 };

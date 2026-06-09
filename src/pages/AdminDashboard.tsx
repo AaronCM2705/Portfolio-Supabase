@@ -1,3 +1,4 @@
+// src/pages/AdminDashboard.tsx
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { useNavigate } from 'react-router-dom';
@@ -17,9 +18,8 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Fetch de mensajes desde la bd
   const fetchMensajes = async () => {
-    // 1. SELECT * FROM Mensaje_Contacto ORDER BY created_at DESC
-    // Obtenemos todos los mensajes ordenados del más nuevo al más antiguo.
     const { data, error } = await supabase
       .from('Mensaje_Contacto')
       .select('*')
@@ -32,6 +32,7 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchMensajes();
   }, []);
 
@@ -44,10 +45,11 @@ const AdminDashboard = () => {
   const handleDelete = async (id: number) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este mensaje? Esta acción no se puede deshacer.')) {
       const toastId = toast.loading('Eliminando mensaje...');
-      // DELETE FROM Mensaje_Contacto WHERE id = id_del_mensaje
-      // Usamos .eq() que significa "equal" (igual) para borrar solo el que queremos.
+      
       const { error } = await supabase.from('Mensaje_Contacto').delete().eq('id', id);
+      
       if (!error) {
+        // Actualizamos localmente para no hacer refetch
         setMensajes(mensajes.filter(m => m.id !== id));
         toast.success('Mensaje eliminado', { id: toastId });
       } else {
@@ -56,6 +58,7 @@ const AdminDashboard = () => {
     }
   };
 
+  // Helper de fecha
   const formatearFecha = (fechaISO: string) => {
     const fecha = new Date(fechaISO);
     return fecha.toLocaleDateString('es-ES', { 
@@ -68,6 +71,7 @@ const AdminDashboard = () => {
     <section className="min-h-screen pt-32 pb-20 px-6 bg-[#0a0a0a] text-white">
       <div className="max-w-7xl mx-auto">
         
+        {/* Header con logout */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
           <div>
             <h1 className="text-4xl md:text-5xl font-black uppercase italic text-[#e63946] mb-2">
@@ -84,7 +88,9 @@ const AdminDashboard = () => {
           </button>
         </div>
 
+        {/* Contenedor de la tabla */}
         <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-sm">
+          
           <div className="p-6 bg-zinc-900 border-b border-zinc-800 flex items-center gap-4">
             <FaEnvelopeOpenText className="text-[#e63946] text-xl" />
             <h2 className="text-xl font-bold uppercase tracking-widest">Mensajes Recibidos ({mensajes.length})</h2>
@@ -101,6 +107,7 @@ const AdminDashboard = () => {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
+                
                 <thead>
                   <tr className="bg-black/50 text-xs uppercase tracking-widest text-zinc-500 font-black">
                     <th className="p-5 border-b border-zinc-800">Fecha</th>
@@ -109,23 +116,29 @@ const AdminDashboard = () => {
                     <th className="p-5 border-b border-zinc-800 text-center">Acciones</th>
                   </tr>
                 </thead>
+                
                 <tbody>
                   {mensajes.map((msg) => (
                     <tr key={msg.id} className="hover:bg-zinc-800/30 transition-colors group">
+                      
                       <td className="p-5 border-b border-zinc-800/50 align-top text-xs text-zinc-400 whitespace-nowrap">
                         {formatearFecha(msg.created_at)}
                       </td>
+                      
                       <td className="p-5 border-b border-zinc-800/50 align-top">
                         <p className="font-bold text-[#e63946] uppercase text-sm mb-1">{msg.nombre}</p>
                         <a href={`mailto:${msg.email}`} className="text-zinc-400 text-xs hover:text-white transition-colors">
                           {msg.email}
                         </a>
                       </td>
+                      
+                      {/* Envolver en pre para mantener saltos de línea */}
                       <td className="p-5 border-b border-zinc-800/50">
                         <pre className="text-zinc-300 text-sm whitespace-pre-wrap font-sans font-medium leading-relaxed">
                           {msg.mensaje}
                         </pre>
                       </td>
+                      
                       <td className="p-5 border-b border-zinc-800/50 align-top text-center">
                         <button 
                           onClick={() => handleDelete(msg.id)}

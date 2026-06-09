@@ -1,3 +1,4 @@
+// src/pages/Contacto.tsx
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaWhatsapp } from 'react-icons/fa';
@@ -14,6 +15,7 @@ const Contacto = () => {
   const [cargando, setCargando] = useState(true);
   const [asunto, setAsunto] = useState('');
 
+  // Fetch de los datos de contacto desde Supabase al montar el componente
   useEffect(() => {
     const fetchInfo = async () => {
       const { data, error } = await supabase
@@ -31,10 +33,12 @@ const Contacto = () => {
     fetchInfo();
   }, []);
 
+  // Manejo del envío del formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const toastId = toast.loading('Enviando mensaje...');
     
+    // Extracción de datos del form
     const formData = new FormData(e.currentTarget);
     const nombre = formData.get('nombre') as string;
     const email = formData.get('email') as string;
@@ -43,7 +47,7 @@ const Contacto = () => {
     const asuntoSeleccionado = formData.get('asunto') as string;
     const mensajeRaw = formData.get('mensaje') as string;
 
-    // Construir mensaje para guardar en Supabase (todo en uno)
+    // Build del mensaje final dependiendo del tipo de asunto
     let mensajeFinal = `[${asuntoSeleccionado}]\n`;
     if (telefono) mensajeFinal += `Teléfono: ${telefono}\n`;
     if (empresa) mensajeFinal += `Empresa: ${empresa}\n`;
@@ -62,21 +66,18 @@ const Contacto = () => {
 
     mensajeFinal += `\nMensaje:\n${mensajeRaw}`;
 
-    // 1. Guardar en la base de datos de Supabase
-    // .from('Mensaje_Contacto') selecciona la tabla.
-    // .insert() añade una nueva fila con el nombre, email y el mensaje completo.
+    // 1. Guardar log en Supabase
     const { error } = await supabase
       .from('Mensaje_Contacto')
       .insert([{ nombre, email, mensaje: mensajeFinal }]);
 
     if (!error) {
-      // 2. Alerta en tiempo real por Telegram
+      // 2. Notificación push a Telegram
       try {
         const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
         const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
         
         if (botToken && chatId) {
-          // Texto Plano Puro para evitar errores de Markdown con símbolos
           let telegramText = `🚀 NUEVO MENSAJE DEL PORTFOLIO 🚀\n\n`;
           telegramText += `👤 Nombre: ${nombre}\n`;
           telegramText += `📧 Email: ${email}\n`;
@@ -94,9 +95,6 @@ const Contacto = () => {
           
           telegramText += `\n💬 Mensaje:\n${mensajeRaw}`;
           
-          // fetch es nativo de JavaScript para hacer peticiones HTTP.
-          // Usamos el método POST para enviar datos a la API oficial de Telegram.
-          // Le pasamos el chat_id (tu cuenta) y el text (el mensaje formateado).
           await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -132,7 +130,7 @@ const Contacto = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           
-          {/* COLUMNA IZQUIERDA: INFO CONTACTO */}
+          {/* Lado izquierdo: Info contacto */}
           <div className="space-y-10">
             <div className="space-y-4">
               <h1 className="text-5xl md:text-7xl font-black uppercase italic text-[#e63946] leading-none">
@@ -142,6 +140,7 @@ const Contacto = () => {
             </div>
 
             <div className="space-y-6">
+              
               <a 
                 href={info?.email_personal ? `https://mail.google.com/mail/?view=cm&fs=1&to=${info.email_personal}` : "#"} 
                 target="_blank"
@@ -186,6 +185,7 @@ const Contacto = () => {
                   </p>
                 </div>
                 
+                {/* Contenedor del mapa (iframe) con filtro B/N al pasar el ratón */}
                 <div className="w-full h-72 rounded-3xl overflow-hidden border-2 border-zinc-800 grayscale invert opacity-60 hover:grayscale-0 hover:invert-0 hover:opacity-100 transition-all duration-1000 shadow-2xl">
                   {info?.google_maps_url ? (
                     <iframe 
@@ -206,7 +206,7 @@ const Contacto = () => {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: FORMULARIO */}
+          {/* Lado derecho: Formulario */}
           <div className="bg-zinc-900 border border-zinc-800 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/5 blur-3xl"></div>
             
@@ -280,6 +280,7 @@ const Contacto = () => {
                 </div>
               </div>
 
+              {/* Campos dinámicos de config según el select */}
               {asunto === 'Reserva de Cita' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 animate-fade-in">
                   <div className="space-y-1.5">

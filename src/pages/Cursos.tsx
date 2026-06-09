@@ -20,7 +20,7 @@ const Cursos = () => {
     <section className="min-h-screen pt-40 pb-20 px-6 bg-[#0a0a0a] text-white">
       <div className="max-w-7xl mx-auto">
         
-        {/* TÍTULO ANIMADO (Vídeo 1) */}
+        {/* TÍTULO ANIMADO */} 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -34,29 +34,27 @@ const Cursos = () => {
           <div className="w-32 h-2 bg-[#e63946] mx-auto mt-8 rounded-full shadow-[0_0_20px_rgba(230,57,70,0.4)]"></div>
         </motion.div>
 
-        {/* GRID DE CURSOS (Vídeo 2: Glassmorphism y Micro-interacciones) */}
+        {/* GRID DE CURSOS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {cursos.map((curso, index) => (
-            <motion.div
+            <motion.div    
               key={curso.id}
-              // Animación de entrada escalada por tarjeta
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              // Micro-interacción: flotación al pasar el ratón
               whileHover={{ y: -10, border: '1px solid #e63946' }}
-              className="relative group bg-zinc-900/30 backdrop-blur-lg border border-zinc-800 p-10 rounded-3xl flex flex-col h-full transition-all duration-700 shadow-2xl"
+              className="relative group bg-zinc-900/30 backdrop-blur-lg border border-zinc-800 p-10 rounded-3xl flex flex-col h-full transition-all duration-700 shadow-2xl overflow-hidden"
             >
               {/* Brillo de acento rojo de fondo en la tarjeta */}
               <div className="absolute -inset-2 bg-[#e63946]/5 blur-3xl rounded-full group-hover:bg-[#e63946]/10 transition-colors"></div>
 
-              {/* Badge de Medalla con rotación (Segundo vídeo) */}
+              {/* Badge de Medalla con rotación */}
               <div className="absolute -top-4 -right-4 bg-[#e63946] p-3 rounded-2xl rotate-12 group-hover:rotate-0 transition-transform shadow-[0_0_15px_rgba(230,57,70,0.5)] z-10">
                 <FaAward className="text-white text-xl" />
               </div>
 
-              <div className="flex items-center gap-5 mb-8">
-                <div className="w-16 h-16 bg-black p-3 rounded-2xl border border-zinc-800 flex items-center justify-center relative">
+              <div className="flex items-center gap-5 mb-8 relative z-10">
+                <div className="w-16 h-16 bg-black p-3 rounded-2xl border border-zinc-800 flex items-center justify-center relative shrink-0">
                    {curso.imagen_logo ? (
                       <img src={curso.imagen_logo} alt="Logo" className="w-full h-full object-contain" />
                    ) : (
@@ -65,26 +63,27 @@ const Cursos = () => {
                    {/* Brillo interno del logo */}
                     <div className="absolute inset-0 bg-[#e63946]/5 blur-lg rounded-full"></div>
                 </div>
-                <div>
-                  <p className="text-[#e63946] text-xs font-black uppercase tracking-widest leading-none mb-1">{curso.institucion}</p>
-                  <p className="text-zinc-500 text-xs font-bold uppercase tracking-tighter">{curso.fecha}</p>
+                <div className="min-w-0">
+                  <p className="text-[#e63946] text-xs font-black uppercase tracking-widest leading-none mb-1 truncate">{curso.institucion}</p>
+                  <p className="text-zinc-500 text-xs font-bold uppercase tracking-tighter truncate">{curso.fecha}</p>
                 </div>
               </div>
 
-              <h3 className="text-3xl font-black uppercase italic mb-5 leading-none group-hover:text-[#e63946] transition-colors shadow-text">
+              {/* Se ha reducido el tamaño de fuente en móvil (text-2xl) y añadido break-words para que no desborde la tarjeta */}
+              <h3 className="text-2xl md:text-3xl font-black uppercase italic mb-5 leading-tight group-hover:text-[#e63946] transition-colors shadow-text break-words relative z-10">
                 {curso.nombre}
               </h3>
               
-              <p className="text-zinc-400 text-sm italic mb-10 grow leading-relaxed max-w-sm">
+              <p className="text-zinc-400 text-sm italic mb-10 grow leading-relaxed relative z-10">
                 "{curso.descripcion}"
               </p>
 
-              {/* Botón con efecto de llenado del Segundo Vídeo */}
+              {/* Botón con efecto de llenado */}
               <a 
                 href={curso.certificado_url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group/btn relative w-full bg-white text-black py-4 rounded-2xl font-black uppercase text-xs tracking-widest overflow-hidden flex items-center justify-center gap-3 transition-all duration-300"
+                className="group/btn relative w-full bg-white text-black py-4 rounded-2xl font-black uppercase text-xs tracking-widest overflow-hidden flex items-center justify-center gap-3 transition-all duration-300 z-10"
               >
                 <span className="relative z-10">Validar Credencial</span>
                 <FaExternalLinkAlt className="relative z-10 text-xs" />

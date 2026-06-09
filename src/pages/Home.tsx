@@ -1,24 +1,26 @@
-import { Link } from 'react-router-dom';
-import { FaCodeBranch, FaTerminal, FaLinux, FaWindows, FaNetworkWired, FaServer, FaDatabase, FaDocker, FaShieldAlt } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import Typewriter from 'typewriter-effect';
+import { Link } from 'react-router-dom'; // Importamos Link de react-router-dom para crear enlaces de navegación.
+import { FaCodeBranch, FaTerminal, FaLinux, FaWindows, FaNetworkWired, FaServer, FaDatabase, FaDocker, FaShieldAlt } from 'react-icons/fa'; // Importamos los iconos que vamos a usar.
+import { motion } from 'framer-motion'; // Importamos motion de framer-motion para crear animaciones.
+import Typewriter from 'typewriter-effect'; // Importamos Typewriter de typewriter-effect para crear el efecto de escritura.
 
-const Home = () => {
+const Home = () => { // Definimos el componente Home.               
   return (
-    <main className="bg-[#0a0a0a] min-h-screen text-white overflow-hidden">
-      {/* -------------------- HERO SECTION -------------------- */}
+    <main className="bg-[#0a0a0a] min-h-screen text-white overflow-hidden"> // Definimos el main con un fondo oscuro y texto blanco. 
+      
+      {/* HERO SECTION */}
       <section className="relative pt-40 pb-20 px-6 flex items-center justify-center min-h-screen">
-        {/* Círculo de brillo rojo de fondo */}
+        {/* Glow de fondo */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-[#e63946]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* LADO IZQUIERDO: Texto con animaciones */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-8"
+            
+            {/* Lado izquierdo con Typewriter */}
+            <motion.div  // motion.div es un componente de framer-motion que nos permite crear animaciones. 
+              initial={{ opacity: 0, x: -50 }} // initial es el estado inicial del componente. opacity: 0 significa que el componente no es visible. x: -50 significa que el componente está desplazado 50 píxeles a la izquierda.
+              animate={{ opacity: 1, x: 0 }} // animate es el estado del componente cuando está en la vista. 
+              transition={{ duration: 0.8 }} // transition es la duración de la animación.
+              className="space-y-8" // space-y-8 es el margen superior del componente.
             >
               <div className="space-y-4">
                 <span className="inline-flex items-center gap-2 bg-zinc-900/50 border border-zinc-800 px-5 py-2 rounded-full text-[#e63946] text-xs font-black uppercase tracking-[0.2em] backdrop-blur-sm">
@@ -28,6 +30,7 @@ const Home = () => {
                 <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase italic leading-none tracking-tight">
                   HOLA, SOY <br />
                   <span className="text-[#e63946] relative inline-block">
+                    {/* Efecto de maquinilla */}
                     <Typewriter
                       options={{
                         strings: ['AARON', 'ESPECIALISTA', 'SYSADMIN'],
@@ -46,6 +49,7 @@ const Home = () => {
                 Estudiante de <strong className="text-white font-black">1º ASIR</strong> enfocado en la gestión de infraestructuras críticas, virtualización y seguridad de redes. Transformando la complejidad en eficiencia.
               </p>
 
+              {/* CTAs */}
               <div className="flex flex-wrap gap-4 pt-4">
                 <Link to="/proyectos" className="group bg-[#e63946] text-white px-6 md:px-10 py-3 md:py-4 font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all flex items-center gap-2 shadow-[0_0_40px_rgba(230,57,70,0.2)]">
                   <FaCodeBranch /> Explorar Proyectos
@@ -56,7 +60,7 @@ const Home = () => {
               </div>
             </motion.div>
 
-            {/* LADO DERECHO: Terminal Simulada */}
+            {/* Lado derecho: Servidor */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -72,7 +76,7 @@ const Home = () => {
                   className="w-full h-full max-w-md aspect-4/3 lg:aspect-square object-cover rounded-2xl transition-transform group-hover:scale-105 duration-700 opacity-90"
                 />
 
-                {/* Overlay técnico ASIR */}
+                {/* Status card flotante */}
                 <div className="absolute bottom-6 left-6 right-6 sm:right-auto bg-zinc-950/85 backdrop-blur-2xl border border-zinc-800/80 p-4 rounded-2xl flex items-center gap-6 shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-hidden">
                   <div className="absolute top-0 left-0 w-1 h-full bg-green-500 shadow-[0_0_15px_#22c55e]"></div>
                   
@@ -102,11 +106,13 @@ const Home = () => {
         </div>
       </section>
 
-      {/* -------------------- 1. MARQUEE INFINITO -------------------- */}
+      {/* --- CARROUSEL TECNOLOGÍAS --- */}
       <section className="w-full bg-[#050505] border-y border-zinc-900 py-8 overflow-hidden relative flex items-center">
+        {/* Fade de los bordes */}
         <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
         <div className="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
         
+        {/* Usamos 2 arrays pa hacer el bucle infinito del marquee css */}
         <div className="flex w-max animate-[marquee_20s_linear_infinite] group hover:[animation-play-state:paused]">
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex gap-16 px-8 items-center opacity-60">
@@ -122,7 +128,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* -------------------- 2. PILARES BENTO -------------------- */}
+      {/* --- GRID DE HABILIDADES --- */}
       <section className="py-24 px-6 max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white">Pilares <span className="text-[#e63946]">Estratégicos</span></h2>
@@ -157,9 +163,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* -------------------- 3. MINI-DASHBOARD STATS -------------------- */}
+      {/* --- STATS INFERIORES --- */}
       <section className="border-t border-zinc-900 bg-[#050505] py-16 px-6 relative overflow-hidden">
-        {/* Red laser line at top */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 md:w-1/2 h-[2px] bg-linear-to-r from-transparent via-[#e63946] to-transparent shadow-[0_0_15px_#e63946]"></div>
         
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-zinc-800">
@@ -182,7 +187,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CSS Animaciones Locales */}
+      {/* Animaciones CSS por inyección para el Marquee */}
       <style dangerouslySetInnerHTML={{__html: `
         .typing-effect-1 {
           animation: typing 1.5s steps(30, end) forwards, blink-caret .75s step-end infinite;

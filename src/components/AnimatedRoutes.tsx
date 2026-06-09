@@ -16,6 +16,13 @@ import ProtectedRoute from './ProtectedRoute';
 
 // Wrapper for animations
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
+  // Solución definitiva para el scroll:
+  // Como usamos mode="wait", la nueva página se monta JUSTO cuando la anterior ha terminado de salir.
+  // Al poner el useEffect aquí, nos aseguramos de que el scroll suba en el instante perfecto.
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

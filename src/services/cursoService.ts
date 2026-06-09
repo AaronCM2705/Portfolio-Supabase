@@ -10,7 +10,7 @@ export interface Curso {
   imagen_logo: string;
 }
 
-export const obtenerCursos = async (): Promise<{ data: Curso[] | null; error: any }> => {
+export const obtenerCursos = async (): Promise<{ data: Curso[] | null; error: Error | null }> => {
   try {
     const { data, error } = await supabase
       .from('Cursos')
@@ -21,6 +21,6 @@ export const obtenerCursos = async (): Promise<{ data: Curso[] | null; error: an
     return { data, error: null };
   } catch (error) {
     console.error('Error obteniendo cursos desde Supabase:', error);
-    return { data: null, error };
+    return { data: null, error: error as Error };
   }
 };
