@@ -17,7 +17,7 @@ const SobreMi = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           {/* Bento Item 1: Perfil (Ocupa 2 columnas en LG) */}
-          <div className="lg:col-span-2 bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300">
+          <div className="lg:col-span-2 bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300">
             <div className="absolute top-0 right-0 w-48 h-48 bg-[#e63946]/10 blur-3xl group-hover:bg-[#e63946]/20 transition-colors"></div>
             
             <h3 className="text-3xl font-black uppercase italic text-[#e63946] mb-6">Perfil Técnico</h3>
@@ -42,7 +42,7 @@ const SobreMi = () => {
           </div>
 
           {/* Bento Item 2: Formación (Ocupa 1 columna) */}
-          <div className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-10 rounded-3xl shadow-2xl group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300 relative overflow-hidden">
+          <div className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-6 md:p-10 rounded-3xl shadow-2xl group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300 relative overflow-hidden">
              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#e63946]/5 blur-3xl group-hover:bg-[#e63946]/10 transition-colors"></div>
             <h3 className="text-xl font-black uppercase italic text-white mb-8 flex items-center gap-3 relative z-10">
               <FaGraduationCap className="text-[#e63946] text-3xl" /> Formación
@@ -56,7 +56,7 @@ const SobreMi = () => {
           </div>
 
           {/* Bento Item 3: Stack (Ocupa 2 columnas) */}
-          <div className="lg:col-span-2 bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300">
+          <div className="lg:col-span-2 bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300">
             <h3 className="text-2xl font-black uppercase italic text-[#e63946] mb-8 relative z-10">Stack Tecnológico</h3>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
@@ -68,11 +68,11 @@ const SobreMi = () => {
                 { icon: FaDatabase, name: "Bases de Datos", desc: "SQL, Supabase" },
                 { icon: FaReact, name: "Frontend", desc: "React, Tailwind" }
               ].map((tech, idx) => (
-                <div key={idx} className="flex items-center gap-4 bg-zinc-950/50 backdrop-blur-sm p-4 rounded-2xl border border-zinc-800/50 hover:border-[#e63946] hover:bg-[#e63946]/5 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all cursor-default">
-                  <tech.icon className="text-3xl text-[#e63946]" />
+                <div key={idx} className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 sm:gap-4 bg-zinc-950/50 backdrop-blur-sm p-4 rounded-2xl border border-zinc-800/50 hover:border-[#e63946] hover:bg-[#e63946]/5 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all cursor-default">
+                  <tech.icon className="text-3xl text-[#e63946] shrink-0" />
                   <div>
-                    <p className="font-bold text-xs uppercase text-white">{tech.name}</p>
-                    <p className="text-xs text-zinc-500 font-mono mt-1">{tech.desc}</p>
+                    <p className="font-bold text-[10px] sm:text-xs uppercase text-white break-words">{tech.name}</p>
+                    <p className="text-[10px] sm:text-xs text-zinc-500 font-mono mt-1">{tech.desc}</p>
                   </div>
                 </div>
               ))}
@@ -80,7 +80,7 @@ const SobreMi = () => {
           </div>
 
           {/* Bento Item 4: Stats (Ocupa 1 columna) */}
-          <div className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300 flex flex-col">
+          <div className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300 flex flex-col">
             <h3 className="text-2xl font-black uppercase italic text-[#e63946] mb-8 relative z-10">Métricas</h3>
             
             <div className="grid grid-cols-2 gap-4 w-full relative z-10 grow">
