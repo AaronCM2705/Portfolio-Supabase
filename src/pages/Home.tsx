@@ -25,7 +25,7 @@ const Home = () => {
                   <FaTerminal className="animate-pulse" /> Status: System Online
                 </span>
                 
-                <h1 className="text-6xl md:text-8xl font-black uppercase italic leading-none">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase italic leading-none tracking-tight">
                   HOLA, SOY <br />
                   <span className="text-[#e63946] relative">
                     <Typewriter
@@ -42,15 +42,15 @@ const Home = () => {
                 </h1>
               </div>
 
-              <p className="text-xl text-zinc-400 leading-relaxed max-w-xl italic border-l-4 border-zinc-800 pl-6">
+              <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-xl italic border-l-4 border-zinc-800 pl-4 md:pl-6">
                 Estudiante de <strong className="text-white font-black">1º ASIR</strong> enfocado en la gestión de infraestructuras críticas, virtualización y seguridad de redes. Transformando la complejidad en eficiencia.
               </p>
 
               <div className="flex flex-wrap gap-4 pt-4">
-                <Link to="/proyectos" className="group bg-[#e63946] text-white px-10 py-4 font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all flex items-center gap-2 shadow-[0_0_40px_rgba(230,57,70,0.2)]">
+                <Link to="/proyectos" className="group bg-[#e63946] text-white px-6 md:px-10 py-3 md:py-4 font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all flex items-center gap-2 shadow-[0_0_40px_rgba(230,57,70,0.2)]">
                   <FaCodeBranch /> Explorar Proyectos
                 </Link>
-                <Link to="/cursos" className="group border-2 border-zinc-800 text-white px-10 py-4 font-black uppercase text-xs tracking-widest hover:border-[#e63946] transition-all">
+                <Link to="/cursos" className="group border-2 border-zinc-800 text-white px-6 md:px-10 py-3 md:py-4 font-black uppercase text-xs tracking-widest hover:border-[#e63946] transition-all text-center">
                   Ver Certificaciones
                 </Link>
               </div>
@@ -69,7 +69,7 @@ const Home = () => {
                 <img 
                   src="/cyber_server_red.png"
                   alt="Cyber Server Infrastructure" 
-                  className="w-full h-full max-w-md aspect-square object-cover rounded-2xl transition-transform group-hover:scale-105 duration-700 opacity-90"
+                  className="w-full h-full max-w-md aspect-[4/3] lg:aspect-square object-cover rounded-2xl transition-transform group-hover:scale-105 duration-700 opacity-90"
                 />
 
                 {/* Overlay técnico ASIR */}
@@ -130,7 +130,7 @@ const Home = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800 p-8 rounded-3xl hover:border-[#e63946]/50 transition-colors group">
+          <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800 p-6 md:p-8 rounded-3xl hover:border-[#e63946]/50 transition-colors group">
             <div className="w-14 h-14 bg-[#e63946]/10 rounded-2xl flex items-center justify-center mb-6 text-[#e63946] text-2xl group-hover:scale-110 group-hover:bg-[#e63946] group-hover:text-white transition-all shadow-lg">
               <FaServer />
             </div>
@@ -138,7 +138,7 @@ const Home = () => {
             <p className="text-zinc-400 text-sm leading-relaxed">Despliegue y administración robusta de servidores físicos y virtuales garantizando la máxima disponibilidad.</p>
           </div>
           
-          <div className="bg-zinc-900/40 backdrop-blur-sm border border-[#e63946]/30 p-8 rounded-3xl hover:border-[#e63946] transition-colors group relative overflow-hidden shadow-[0_0_20px_rgba(230,57,70,0.05)]">
+          <div className="bg-zinc-900/40 backdrop-blur-sm border border-[#e63946]/30 p-6 md:p-8 rounded-3xl hover:border-[#e63946] transition-colors group relative overflow-hidden shadow-[0_0_20px_rgba(230,57,70,0.05)]">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#e63946]/10 blur-3xl rounded-full pointer-events-none"></div>
             <div className="w-14 h-14 bg-[#e63946] rounded-2xl flex items-center justify-center mb-6 text-white text-2xl group-hover:scale-110 shadow-[0_0_15px_rgba(230,57,70,0.5)] transition-all">
               <FaShieldAlt />
@@ -147,7 +147,7 @@ const Home = () => {
             <p className="text-zinc-300 text-sm leading-relaxed">Implementación estricta de firewalls, políticas de acceso y auditorías para proteger activos críticos.</p>
           </div>
 
-          <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800 p-8 rounded-3xl hover:border-[#e63946]/50 transition-colors group">
+          <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800 p-6 md:p-8 rounded-3xl hover:border-[#e63946]/50 transition-colors group">
             <div className="w-14 h-14 bg-[#e63946]/10 rounded-2xl flex items-center justify-center mb-6 text-[#e63946] text-2xl group-hover:scale-110 group-hover:bg-[#e63946] group-hover:text-white transition-all shadow-lg">
               <FaTerminal />
             </div>

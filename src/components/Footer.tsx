@@ -24,16 +24,16 @@ const Footer = () => {
               </span>
             </div>
           </Link>
-          <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 text-center md:text-left">
+          <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-zinc-500 text-center md:text-left mt-2 md:mt-0">
             Transformando complejidad en eficiencia.
           </p>
         </div>
 
         {/* Centro: Navegación Rápida */}
-        <div className="flex justify-center gap-6">
-          <Link to="/proyectos" className="text-sm font-bold uppercase tracking-widest hover:text-[#e63946] transition-colors">Proyectos</Link>
-          <Link to="/cursos" className="text-sm font-bold uppercase tracking-widest hover:text-[#e63946] transition-colors">Cursos</Link>
-          <Link to="/contacto" className="text-sm font-bold uppercase tracking-widest hover:text-[#e63946] transition-colors">Contacto</Link>
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          <Link to="/proyectos" className="text-xs md:text-sm font-bold uppercase tracking-widest hover:text-[#e63946] transition-colors">Proyectos</Link>
+          <Link to="/cursos" className="text-xs md:text-sm font-bold uppercase tracking-widest hover:text-[#e63946] transition-colors">Cursos</Link>
+          <Link to="/contacto" className="text-xs md:text-sm font-bold uppercase tracking-widest hover:text-[#e63946] transition-colors">Contacto</Link>
         </div>
 
         {/* Lado derecho: Redes y Contacto */}
@@ -53,8 +53,8 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs uppercase font-mono tracking-widest">
-        <p>&copy; {currentYear} Aaron Cruz Medrano. Todos los derechos reservados.</p>
+      <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] md:text-xs uppercase font-mono tracking-widest text-center md:text-left">
+        <p className="leading-relaxed">&copy; {currentYear} Aaron Cruz Medrano.<br className="md:hidden" /> Todos los derechos reservados.</p>
         <p>1º ASIR - Lenguaje de Marcas</p>
       </div>
     </footer>
