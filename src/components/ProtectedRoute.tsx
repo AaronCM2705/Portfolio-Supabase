@@ -8,9 +8,11 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // 1. Nada más cargar este componente, le preguntamos a Supabase:
+    // "¿Hay alguien logueado en este navegador?"
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
+      setSession(session); // Guardamos la respuesta (null si no hay nadie)
+      setLoading(false);   // Quitamos la pantalla de carga
     });
 
     const {
@@ -33,10 +35,13 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
+  // 2. Si ya ha terminado de cargar y 'session' está vacío (null)...
+  // ¡Expulsamos al usuario a la página de login usando <Navigate>!
   if (!session) {
     return <Navigate to="/login" replace />;
   }
 
+  // 3. Si tiene sesión, le dejamos ver el contenido protegido (el AdminDashboard)
   return children;
 };
 

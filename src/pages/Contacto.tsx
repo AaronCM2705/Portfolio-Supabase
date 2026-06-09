@@ -63,6 +63,8 @@ const Contacto = () => {
     mensajeFinal += `\nMensaje:\n${mensajeRaw}`;
 
     // 1. Guardar en la base de datos de Supabase
+    // .from('Mensaje_Contacto') selecciona la tabla.
+    // .insert() añade una nueva fila con el nombre, email y el mensaje completo.
     const { error } = await supabase
       .from('Mensaje_Contacto')
       .insert([{ nombre, email, mensaje: mensajeFinal }]);
@@ -92,6 +94,9 @@ const Contacto = () => {
           
           telegramText += `\n💬 Mensaje:\n${mensajeRaw}`;
           
+          // fetch es nativo de JavaScript para hacer peticiones HTTP.
+          // Usamos el método POST para enviar datos a la API oficial de Telegram.
+          // Le pasamos el chat_id (tu cuenta) y el text (el mensaje formateado).
           await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

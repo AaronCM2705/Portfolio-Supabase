@@ -24,6 +24,8 @@ const Login = () => {
     setLoading(true);
     const toastId = toast.loading('Verificando credenciales...');
 
+    // Llamada a la API de autenticación de Supabase.
+    // Comprueba si el email y la contraseña coinciden con el usuario de la BBDD.
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,

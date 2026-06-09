@@ -18,6 +18,8 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   const fetchMensajes = async () => {
+    // 1. SELECT * FROM Mensaje_Contacto ORDER BY created_at DESC
+    // Obtenemos todos los mensajes ordenados del más nuevo al más antiguo.
     const { data, error } = await supabase
       .from('Mensaje_Contacto')
       .select('*')
@@ -42,6 +44,8 @@ const AdminDashboard = () => {
   const handleDelete = async (id: number) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este mensaje? Esta acción no se puede deshacer.')) {
       const toastId = toast.loading('Eliminando mensaje...');
+      // DELETE FROM Mensaje_Contacto WHERE id = id_del_mensaje
+      // Usamos .eq() que significa "equal" (igual) para borrar solo el que queremos.
       const { error } = await supabase.from('Mensaje_Contacto').delete().eq('id', id);
       if (!error) {
         setMensajes(mensajes.filter(m => m.id !== id));
