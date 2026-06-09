@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaTerminal } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaTerminal, FaLock } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -55,7 +55,12 @@ const Footer = () => {
       {/* Copyright */}
       <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] md:text-xs uppercase font-mono tracking-widest text-center md:text-left">
         <p className="leading-relaxed">&copy; {currentYear} Aaron Cruz Medrano.<br className="md:hidden" /> Todos los derechos reservados.</p>
-        <p>1º ASIR - Lenguaje de Marcas</p>
+        <div className="flex items-center gap-2 text-zinc-600">
+          <p>1º ASIR - Lenguaje de Marcas</p>
+          <Link to="/login" className="hover:text-[#e63946] transition-colors p-1" title="Acceso Administrativo">
+            <FaLock className="text-[10px]" />
+          </Link>
+        </div>
       </div>
     </footer>
   );

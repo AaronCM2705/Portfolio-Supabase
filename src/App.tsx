@@ -8,6 +8,9 @@ import Proyectos from './pages/Proyectos';
 import Contacto from './pages/Contacto';
 import ServicioDetalle from './pages/ServicioDetalle';
 import Cursos from './pages/Cursos';
+import Login from './pages/Login';
+import AdminDashboard from './pages/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -21,9 +24,17 @@ function App() {
             <Route path="/servicios" element={<Servicios />} />
             <Route path="/proyectos" element={<Proyectos />} />
             <Route path="/contacto" element={<Contacto />} />
-            <Route path="/servicios" element={<Servicios />} />
             <Route path="/servicios/:id" element={<ServicioDetalle />} />
             <Route path="/cursos" element={<Cursos />} />
+            <Route path="/login" element={<Login />} />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
         </main>
         <Footer />
