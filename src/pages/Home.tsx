@@ -5,7 +5,7 @@ import Typewriter from 'typewriter-effect'; // Importamos Typewriter de typewrit
 
 const Home = () => { // Definimos el componente Home.               
   return (
-    <main className="bg-[#0a0a0a] min-h-screen text-white overflow-hidden"> // Definimos el main con un fondo oscuro y texto blanco. 
+    <main className="bg-[#0a0a0a] min-h-screen text-white overflow-hidden">
       
       {/* HERO SECTION */}
       <section className="relative pt-40 pb-20 px-6 flex items-center justify-center min-h-screen">
