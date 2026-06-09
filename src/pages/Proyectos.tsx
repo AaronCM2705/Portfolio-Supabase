@@ -34,7 +34,7 @@ const Proyectos = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {proyectos.map((p) => (
               <div key={p.id} className="bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 rounded-3xl overflow-hidden group hover:border-[#e63946]/80 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(230,57,70,0.2)] relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/80 z-10 pointer-events-none"></div>
                 <div className="h-72 overflow-hidden bg-zinc-950 relative">
                   <img 
                     src={p.imagen_url} 

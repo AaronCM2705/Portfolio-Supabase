@@ -69,7 +69,7 @@ const Home = () => {
                 <img 
                   src="/cyber_server_red.png"
                   alt="Cyber Server Infrastructure" 
-                  className="w-full h-full max-w-md aspect-[4/3] lg:aspect-square object-cover rounded-2xl transition-transform group-hover:scale-105 duration-700 opacity-90"
+                  className="w-full h-full max-w-md aspect-4/3 lg:aspect-square object-cover rounded-2xl transition-transform group-hover:scale-105 duration-700 opacity-90"
                 />
 
                 {/* Overlay técnico ASIR */}
@@ -104,8 +104,8 @@ const Home = () => {
 
       {/* -------------------- 1. MARQUEE INFINITO -------------------- */}
       <section className="w-full bg-[#050505] border-y border-zinc-900 py-8 overflow-hidden relative flex items-center">
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
         
         <div className="flex w-max animate-[marquee_20s_linear_infinite] group hover:[animation-play-state:paused]">
           {[...Array(2)].map((_, i) => (
@@ -160,7 +160,7 @@ const Home = () => {
       {/* -------------------- 3. MINI-DASHBOARD STATS -------------------- */}
       <section className="border-t border-zinc-900 bg-[#050505] py-16 px-6 relative overflow-hidden">
         {/* Red laser line at top */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 md:w-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#e63946] to-transparent shadow-[0_0_15px_#e63946]"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 md:w-1/2 h-[2px] bg-linear-to-r from-transparent via-[#e63946] to-transparent shadow-[0_0_15px_#e63946]"></div>
         
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-zinc-800">
           <div className="flex flex-col items-center justify-center text-center space-y-2">

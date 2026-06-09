@@ -48,7 +48,7 @@ const SobreMi = () => {
               <FaGraduationCap className="text-[#e63946] text-3xl" /> Formación
             </h3>
             <div className="border-l-2 border-[#e63946]/30 pl-6 relative z-10 group-hover:border-[#e63946] transition-colors">
-              <div className="absolute w-4 h-4 bg-[#e63946] rounded-full -left-[9px] top-0 border-4 border-[#0a0a0a] shadow-[0_0_10px_rgba(230,57,70,0.8)]"></div>
+              <div className="absolute w-4 h-4 bg-[#e63946] rounded-full left-[-9px] top-0 border-4 border-[#0a0a0a] shadow-[0_0_10px_rgba(230,57,70,0.8)]"></div>
               <h4 className="text-lg font-bold text-white">Técnico Superior en ASIR</h4>
               <p className="text-[#e63946] text-xs font-black uppercase tracking-widest mb-3 mt-1">Actualmente cursando (1º Año)</p>
               <p className="text-zinc-400 text-sm leading-relaxed">Especialización en sistemas operativos, redes locales, bases de datos y lenguajes de marcas.</p>
@@ -71,7 +71,7 @@ const SobreMi = () => {
                 <div key={idx} className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 sm:gap-4 bg-zinc-950/50 backdrop-blur-sm p-4 rounded-2xl border border-zinc-800/50 hover:border-[#e63946] hover:bg-[#e63946]/5 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all cursor-default">
                   <tech.icon className="text-3xl text-[#e63946] shrink-0" />
                   <div>
-                    <p className="font-bold text-[10px] sm:text-xs uppercase text-white break-words">{tech.name}</p>
+                    <p className="font-bold text-[10px] sm:text-xs uppercase text-white wrap-break-word">{tech.name}</p>
                     <p className="text-[10px] sm:text-xs text-zinc-500 font-mono mt-1">{tech.desc}</p>
                   </div>
                 </div>
