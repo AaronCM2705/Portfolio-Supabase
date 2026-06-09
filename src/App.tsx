@@ -1,41 +1,41 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import SobreMi from './pages/SobreMi';
-import Servicios from './pages/Servicios';
-import Proyectos from './pages/Proyectos';
-import Contacto from './pages/Contacto';
-import ServicioDetalle from './pages/ServicioDetalle';
-import Cursos from './pages/Cursos';
-import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
-import ProtectedRoute from './components/ProtectedRoute';
+import AnimatedRoutes from './components/AnimatedRoutes';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
+        {/* Toaster global para las notificaciones flotantes */}
+        <Toaster 
+          position="bottom-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#18181b', // zinc-900
+              color: '#fff',
+              border: '1px solid #27272a', // zinc-800
+            },
+            success: {
+              iconTheme: {
+                primary: '#22c55e', // green-500
+                secondary: '#fff',
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: '#e63946', // tu rojo corporativo
+                secondary: '#fff',
+              },
+            },
+          }}
+        />
+        
         <Navbar />
-        <main className="grow pt-20">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sobre-mi" element={<SobreMi />} />
-            <Route path="/servicios" element={<Servicios />} />
-            <Route path="/proyectos" element={<Proyectos />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/servicios/:id" element={<ServicioDetalle />} />
-            <Route path="/cursos" element={<Cursos />} />
-            <Route path="/login" element={<Login />} />
-            <Route 
-              path="/admin" 
-              element={
-                <ProtectedRoute>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              } 
-            />
-          </Routes>
+        <main className="grow pt-20 overflow-x-hidden">
+          <AnimatedRoutes />
         </main>
         <Footer />
       </div>

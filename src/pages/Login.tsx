@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { FaLock, FaUserShield } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    const toastId = toast.loading('Verificando credenciales...');
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -30,9 +30,10 @@ const Login = () => {
     });
 
     if (error) {
-      setError('Credenciales incorrectas o usuario no registrado.');
+      toast.error('Credenciales incorrectas o usuario no registrado.', { id: toastId });
       setLoading(false);
     } else {
+      toast.success('Acceso concedido', { id: toastId });
       navigate('/admin');
     }
   };
@@ -76,12 +77,6 @@ const Login = () => {
               placeholder="••••••••"
             />
           </div>
-
-          {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-black p-3 rounded-xl text-center">
-              {error}
-            </div>
-          )}
 
           <button 
             type="submit" 

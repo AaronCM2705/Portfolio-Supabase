@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { FaSignOutAlt, FaEnvelopeOpenText, FaTrash } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 interface Mensaje {
   id: number;
@@ -34,16 +35,19 @@ const AdminDashboard = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    toast.success('Sesión cerrada correctamente');
     navigate('/');
   };
 
   const handleDelete = async (id: number) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este mensaje? Esta acción no se puede deshacer.')) {
+      const toastId = toast.loading('Eliminando mensaje...');
       const { error } = await supabase.from('Mensaje_Contacto').delete().eq('id', id);
       if (!error) {
         setMensajes(mensajes.filter(m => m.id !== id));
+        toast.success('Mensaje eliminado', { id: toastId });
       } else {
-        alert('Error al eliminar el mensaje');
+        toast.error('Error al eliminar el mensaje', { id: toastId });
       }
     }
   };

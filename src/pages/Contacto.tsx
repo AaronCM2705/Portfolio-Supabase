@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaWhatsapp } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 interface InfoContacto {
   email_personal: string;
@@ -10,7 +11,6 @@ interface InfoContacto {
 
 const Contacto = () => {
   const [info, setInfo] = useState<InfoContacto | null>(null);
-  const [status, setStatus] = useState('');
   const [cargando, setCargando] = useState(true);
   const [asunto, setAsunto] = useState('');
 
@@ -33,7 +33,7 @@ const Contacto = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('Enviando...');
+    const toastId = toast.loading('Enviando mensaje...');
     
     const formData = new FormData(e.currentTarget);
     const nombre = formData.get('nombre') as string;
@@ -105,12 +105,12 @@ const Contacto = () => {
         console.error("Error enviando alerta a Telegram:", tgError);
       }
 
-      setStatus('¡Mensaje enviado con éxito! Te responderé pronto.');
+      toast.success('¡Mensaje enviado con éxito!', { id: toastId });
       (e.target as HTMLFormElement).reset();
       setAsunto('');
     } else {
       console.error("Error al guardar mensaje:", error.message);
-      setStatus('Error al enviar el mensaje. Revisa la conexión.');
+      toast.error('Error al enviar el mensaje', { id: toastId });
     }
   };
 
@@ -340,14 +340,6 @@ const Contacto = () => {
                 Enviar Mensaje 
                 <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
-              
-              {status && (
-                <div className={`text-center p-4 rounded-xl text-xs font-black uppercase tracking-widest ${
-                  status.includes('éxito') ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'
-                }`}>
-                  {status}
-                </div>
-              )}
             </form>
           </div>
 
