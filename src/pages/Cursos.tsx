@@ -27,8 +27,9 @@ const Cursos = () => {
           transition={{ duration: 0.6 }}
           className="mb-20 text-center"
         >
-          <h2 className="text-[#e63946] font-black uppercase tracking-[0.3em] text-sm mb-4">Acreditaciones Técnicas</h2>
-          <h1 className="text-6xl md:text-8xl font-black uppercase italic leading-none">
+          <h2 className="text-[#e63946] font-black uppercase tracking-[0.3em] text-xs md:text-sm mb-4">Acreditaciones Técnicas</h2>
+          {/* Se redujo a text-4xl en móviles (sm:text-5xl) para evitar recortes */}
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase italic leading-none break-words tracking-tight">
             CURSOS Y <br /> <span className="text-[#e63946]">CERTIFICADOS</span>
           </h1>
           <div className="w-32 h-2 bg-[#e63946] mx-auto mt-8 rounded-full shadow-[0_0_20px_rgba(230,57,70,0.4)]"></div>
@@ -48,8 +49,8 @@ const Cursos = () => {
               {/* Brillo de acento rojo de fondo en la tarjeta */}
               <div className="absolute -inset-2 bg-[#e63946]/5 blur-3xl rounded-full group-hover:bg-[#e63946]/10 transition-colors"></div>
 
-              {/* Badge de Medalla con rotación */}
-              <div className="absolute -top-4 -right-4 bg-[#e63946] p-3 rounded-2xl rotate-12 group-hover:rotate-0 transition-transform shadow-[0_0_15px_rgba(230,57,70,0.5)] z-10">
+              {/* Badge de Medalla con rotación (Movido adentro top-4 right-4 para que no se recorte) */}
+              <div className="absolute top-5 right-5 bg-[#e63946] p-3 rounded-2xl rotate-12 group-hover:rotate-0 transition-transform shadow-[0_0_15px_rgba(230,57,70,0.5)] z-10">
                 <FaAward className="text-white text-xl" />
               </div>
 
@@ -63,14 +64,14 @@ const Cursos = () => {
                    {/* Brillo interno del logo */}
                     <div className="absolute inset-0 bg-[#e63946]/5 blur-lg rounded-full"></div>
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 pr-10">
                   <p className="text-[#e63946] text-xs font-black uppercase tracking-widest leading-none mb-1 truncate">{curso.institucion}</p>
                   <p className="text-zinc-500 text-xs font-bold uppercase tracking-tighter truncate">{curso.fecha}</p>
                 </div>
               </div>
 
               {/* Se ha reducido el tamaño de fuente en móvil (text-2xl) y añadido break-words para que no desborde la tarjeta */}
-              <h3 className="text-2xl md:text-3xl font-black uppercase italic mb-5 leading-tight group-hover:text-[#e63946] transition-colors shadow-text break-words relative z-10">
+              <h3 className="text-2xl md:text-3xl font-black uppercase italic mb-5 leading-tight group-hover:text-[#e63946] transition-colors shadow-text break-words relative z-10 pr-2">
                 {curso.nombre}
               </h3>
               
