@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import { FaSignOutAlt, FaEnvelopeOpenText, FaTrash, FaEdit, FaPlus, FaBook, FaProjectDiagram, FaTimes, FaLayerGroup } from 'react-icons/fa';
+import { FaSignOutAlt, FaEnvelopeOpenText, FaTrash, FaEdit, FaPlus, FaBook, FaProjectDiagram, FaTimes, FaLayerGroup, FaServer } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 // Servicios
 import { obtenerCursos, crearCurso, actualizarCurso, eliminarCurso, type Curso } from '../services/cursoService';
 import { obtenerProyectos, crearProyecto, actualizarProyecto, eliminarProyecto, type Proyecto } from '../services/proyectoService';
 import { obtenerStack, crearStack, actualizarStack, eliminarStack, type StackItem } from '../services/stackService';
+import { obtenerServicios, crearServicio, actualizarServicio, eliminarServicio, type Servicio } from '../services/servicioService';
 
 interface Mensaje {
   id: number;
@@ -19,7 +20,7 @@ interface Mensaje {
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'mensajes' | 'cursos' | 'proyectos' | 'stack'>('mensajes');
+  const [activeTab, setActiveTab] = useState<'mensajes' | 'cursos' | 'proyectos' | 'stack' | 'servicios'>('mensajes');
 
   // Estados
   const [mensajes, setMensajes] = useState<Mensaje[]>([]);
@@ -39,6 +40,11 @@ const AdminDashboard = () => {
   const [loadingStack, setLoadingStack] = useState(true);
   const [isStackModalOpen, setIsStackModalOpen] = useState(false);
   const [editingStack, setEditingStack] = useState<Partial<StackItem> | null>(null);
+
+  const [servicios, setServicios] = useState<Servicio[]>([]);
+  const [loadingServicios, setLoadingServicios] = useState(true);
+  const [isServicioModalOpen, setIsServicioModalOpen] = useState(false);
+  const [editingServicio, setEditingServicio] = useState<Partial<Servicio> | null>(null);
 
   // Funciones de carga
   const fetchMensajes = async () => {
@@ -65,12 +71,19 @@ const AdminDashboard = () => {
     setLoadingStack(false);
   };
 
+  const fetchServiciosData = async () => {
+    const { data } = await obtenerServicios();
+    if (data) setServicios(data);
+    setLoadingServicios(false);
+  };
+
   useEffect(() => {
     const loadAllData = async () => {
       await fetchMensajes();
       await fetchCursosData();
       await fetchProyectosData();
       await fetchStackData();
+      await fetchServiciosData();
     };
     loadAllData();
   }, []);
@@ -250,6 +263,57 @@ const AdminDashboard = () => {
     }
   };
 
+  // --------------------------------------------------
+  // CRUD SERVICIOS
+  // --------------------------------------------------
+  const openServicioModal = (servicio?: Servicio) => {
+    if (servicio) {
+      setEditingServicio(servicio);
+    } else {
+      setEditingServicio({ nombre: '', descripcion: '', detalles: '', imagen_url: '' });
+    }
+    setIsServicioModalOpen(true);
+  };
+
+  const handleSaveServicio = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!editingServicio) return;
+    
+    const toastId = toast.loading('Guardando servicio...');
+    
+    try {
+      if (editingServicio.id) {
+        // Actualizar
+        const { error } = await actualizarServicio(editingServicio.id, editingServicio as Omit<Servicio, 'id'>);
+        if (error) throw error;
+        toast.success('Servicio actualizado', { id: toastId });
+      } else {
+        // Crear
+        const { error } = await crearServicio(editingServicio as Omit<Servicio, 'id'>);
+        if (error) throw error;
+        toast.success('Servicio creado', { id: toastId });
+      }
+      setIsServicioModalOpen(false);
+      fetchServiciosData();
+    } catch (err) {
+      console.error(err);
+      toast.error('Error al guardar', { id: toastId });
+    }
+  };
+
+  const handleDeleteServicio = async (id: number) => {
+    if (window.confirm('¿Eliminar este servicio permanentemente?')) {
+      const toastId = toast.loading('Eliminando...');
+      const { error } = await eliminarServicio(id);
+      if (!error) {
+        toast.success('Eliminado', { id: toastId });
+        fetchServiciosData();
+      } else {
+        toast.error('Error', { id: toastId });
+      }
+    }
+  };
+
   // Utils
   const formatearFecha = (fechaISO: string) => {
     return new Date(fechaISO).toLocaleDateString('es-ES', { 
@@ -304,6 +368,12 @@ const AdminDashboard = () => {
             className={`flex items-center gap-2 px-6 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all ${activeTab === 'stack' ? 'bg-[#e63946] text-white shadow-[0_0_20px_rgba(230,57,70,0.4)]' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'}`}
           >
             <FaLayerGroup /> Stack Tecnológico
+          </button>
+          <button 
+            onClick={() => setActiveTab('servicios')}
+            className={`flex items-center gap-2 px-6 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all ${activeTab === 'servicios' ? 'bg-[#e63946] text-white shadow-[0_0_20px_rgba(230,57,70,0.4)]' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'}`}
+          >
+            <FaServer /> Servicios
           </button>
         </div>
 
@@ -509,6 +579,55 @@ const AdminDashboard = () => {
             </>
           )}
 
+          {/* TAB SERVICIOS */}
+          {activeTab === 'servicios' && (
+            <>
+              <div className="p-6 bg-zinc-900 border-b border-zinc-800 flex justify-between items-center flex-wrap gap-4">
+                <div className="flex items-center gap-4">
+                  <FaServer className="text-[#e63946] text-xl" />
+                  <h2 className="text-xl font-bold uppercase tracking-widest">Gestión de Servicios ({servicios.length})</h2>
+                </div>
+                <button onClick={() => openServicioModal()} className="bg-[#e63946] hover:bg-white hover:text-black text-white px-4 py-2 rounded-lg font-black uppercase text-xs flex items-center gap-2 transition-all">
+                  <FaPlus /> Añadir Servicio
+                </button>
+              </div>
+              
+              {loadingServicios ? (
+                <div className="p-20 text-center text-zinc-500 font-black animate-pulse">Cargando servicios...</div>
+              ) : servicios.length === 0 ? (
+                <div className="p-20 text-center text-zinc-500 font-black">No hay servicios registrados.</div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-black/50 text-xs uppercase tracking-widest text-zinc-500 font-black">
+                        <th className="p-5 border-b border-zinc-800">Servicio</th>
+                        <th className="p-5 border-b border-zinc-800">Descripción Corta</th>
+                        <th className="p-5 border-b border-zinc-800 text-center">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {servicios.map((s) => (
+                        <tr key={s.id} className="hover:bg-zinc-800/30 transition-colors group">
+                          <td className="p-5 border-b border-zinc-800/50 align-middle">
+                            <p className="font-bold text-white text-sm">{s.nombre}</p>
+                          </td>
+                          <td className="p-5 border-b border-zinc-800/50 align-middle text-sm text-zinc-400 truncate max-w-xs">{s.descripcion}</td>
+                          <td className="p-5 border-b border-zinc-800/50 align-middle text-center">
+                            <div className="flex justify-center gap-2">
+                              <button onClick={() => openServicioModal(s)} className="text-zinc-400 hover:text-white transition-colors p-2"><FaEdit /></button>
+                              <button onClick={() => handleDeleteServicio(s.id)} className="text-zinc-600 hover:text-red-500 transition-colors p-2"><FaTrash /></button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </>
+          )}
+
         </div>
       </div>
 
@@ -614,6 +733,40 @@ const AdminDashboard = () => {
               
               <div className="pt-4 flex justify-end gap-4">
                 <button type="button" onClick={() => setIsStackModalOpen(false)} className="px-6 py-3 font-bold uppercase text-xs text-zinc-400 hover:text-white">Cancelar</button>
+                <button type="submit" className="bg-[#e63946] hover:bg-white hover:text-black text-white px-8 py-3 rounded-xl font-black uppercase text-xs transition-all shadow-lg">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL SERVICIOS */}
+      {isServicioModalOpen && editingServicio && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 w-full max-w-2xl shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onClick={() => setIsServicioModalOpen(false)} className="absolute top-6 right-6 text-zinc-500 hover:text-white"><FaTimes className="text-xl" /></button>
+            <h3 className="text-2xl font-black uppercase italic mb-6">{editingServicio.id ? 'Editar Servicio' : 'Añadir Nuevo Servicio'}</h3>
+            
+            <form onSubmit={handleSaveServicio} className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-bold">Nombre del Servicio</label>
+                <input required type="text" value={editingServicio.nombre || ''} onChange={e => setEditingServicio({...editingServicio, nombre: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#e63946]" />
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-bold">Descripción (Breve, para la tarjeta)</label>
+                <textarea required value={editingServicio.descripcion || ''} onChange={e => setEditingServicio({...editingServicio, descripcion: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white h-20 focus:outline-none focus:border-[#e63946]"></textarea>
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-bold">Detalles (Texto completo, soporta saltos de línea)</label>
+                <textarea required value={editingServicio.detalles || ''} onChange={e => setEditingServicio({...editingServicio, detalles: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white h-40 focus:outline-none focus:border-[#e63946]"></textarea>
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-bold">URL Imagen de Portada</label>
+                <input required type="url" value={editingServicio.imagen_url || ''} onChange={e => setEditingServicio({...editingServicio, imagen_url: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#e63946]" />
+              </div>
+              
+              <div className="pt-4 flex justify-end gap-4">
+                <button type="button" onClick={() => setIsServicioModalOpen(false)} className="px-6 py-3 font-bold uppercase text-xs text-zinc-400 hover:text-white">Cancelar</button>
                 <button type="submit" className="bg-[#e63946] hover:bg-white hover:text-black text-white px-8 py-3 rounded-xl font-black uppercase text-xs transition-all shadow-lg">Guardar</button>
               </div>
             </form>
