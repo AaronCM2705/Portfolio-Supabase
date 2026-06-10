@@ -54,12 +54,12 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    fetchMensajes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    fetchCursosData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    fetchProyectosData();
+    const loadAllData = async () => {
+      await fetchMensajes();
+      await fetchCursosData();
+      await fetchProyectosData();
+    };
+    loadAllData();
   }, []);
 
   const handleLogout = async () => {
