@@ -39,7 +39,7 @@ const Proyectos = () => {
           <h2 className="text-[#e63946] font-black uppercase tracking-[0.3em] text-xs md:text-sm mb-2">
             Desarrollo e Infraestructura
           </h2>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase italic text-white leading-none break-words tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase italic text-white leading-none wrap-break-word tracking-tight">
             Proyectos
           </h1>
         </motion.div>
@@ -63,7 +63,7 @@ const Proyectos = () => {
                 {/* Imagen Superior */}
                 <div className="h-64 overflow-hidden bg-black relative">
                   {/* Capa oscura que se difumina hacia abajo para fusionarse con la tarjeta */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent z-10 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-zinc-900 via-transparent to-transparent z-10 pointer-events-none"></div>
                   <img 
                     src={p.imagen_url} 
                     alt={p.nombre} 
