@@ -79,7 +79,7 @@ const SobreMi = () => {
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
                 {stack.map((tech) => {
-                  const IconComponent = (FaIcons as any)[tech.icono] || FaIcons.FaTerminal;
+                  const IconComponent = FaIcons[tech.icono as keyof typeof FaIcons] || FaIcons.FaTerminal;
                   return (
                     <div key={tech.id} className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 sm:gap-4 bg-zinc-950/50 backdrop-blur-sm p-4 rounded-2xl border border-zinc-800/50 hover:border-[#e63946] hover:bg-[#e63946]/5 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all cursor-default">
                       <IconComponent className="text-3xl text-[#e63946] shrink-0" />
