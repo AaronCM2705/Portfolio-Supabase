@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import { FaSignOutAlt, FaEnvelopeOpenText, FaTrash, FaEdit, FaPlus, FaBook, FaProjectDiagram, FaTimes } from 'react-icons/fa';
+import { FaSignOutAlt, FaEnvelopeOpenText, FaTrash, FaEdit, FaPlus, FaBook, FaProjectDiagram, FaTimes, FaLayerGroup } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 // Servicios
 import { obtenerCursos, crearCurso, actualizarCurso, eliminarCurso, type Curso } from '../services/cursoService';
 import { obtenerProyectos, crearProyecto, actualizarProyecto, eliminarProyecto, type Proyecto } from '../services/proyectoService';
+import { obtenerStack, crearStack, actualizarStack, eliminarStack, type StackItem } from '../services/stackService';
 
 interface Mensaje {
   id: number;
@@ -18,7 +19,7 @@ interface Mensaje {
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'mensajes' | 'cursos' | 'proyectos'>('mensajes');
+  const [activeTab, setActiveTab] = useState<'mensajes' | 'cursos' | 'proyectos' | 'stack'>('mensajes');
 
   // Estados
   const [mensajes, setMensajes] = useState<Mensaje[]>([]);
@@ -33,6 +34,11 @@ const AdminDashboard = () => {
   const [loadingProyectos, setLoadingProyectos] = useState(true);
   const [isProyectoModalOpen, setIsProyectoModalOpen] = useState(false);
   const [editingProyecto, setEditingProyecto] = useState<Partial<Proyecto> | null>(null);
+
+  const [stack, setStack] = useState<StackItem[]>([]);
+  const [loadingStack, setLoadingStack] = useState(true);
+  const [isStackModalOpen, setIsStackModalOpen] = useState(false);
+  const [editingStack, setEditingStack] = useState<Partial<StackItem> | null>(null);
 
   // Funciones de carga
   const fetchMensajes = async () => {
@@ -53,11 +59,18 @@ const AdminDashboard = () => {
     setLoadingProyectos(false);
   };
 
+  const fetchStackData = async () => {
+    const { data } = await obtenerStack();
+    if (data) setStack(data);
+    setLoadingStack(false);
+  };
+
   useEffect(() => {
     const loadAllData = async () => {
       await fetchMensajes();
       await fetchCursosData();
       await fetchProyectosData();
+      await fetchStackData();
     };
     loadAllData();
   }, []);
@@ -186,6 +199,57 @@ const AdminDashboard = () => {
     }
   };
 
+  // --------------------------------------------------
+  // CRUD STACK
+  // --------------------------------------------------
+  const openStackModal = (item?: StackItem) => {
+    if (item) {
+      setEditingStack(item);
+    } else {
+      setEditingStack({ nombre: '', descripcion: '', icono: '' });
+    }
+    setIsStackModalOpen(true);
+  };
+
+  const handleSaveStack = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!editingStack) return;
+    
+    const toastId = toast.loading('Guardando tecnología...');
+    
+    try {
+      if (editingStack.id) {
+        // Actualizar
+        const { error } = await actualizarStack(editingStack.id, editingStack as Omit<StackItem, 'id' | 'created_at'>);
+        if (error) throw error;
+        toast.success('Tecnología actualizada', { id: toastId });
+      } else {
+        // Crear
+        const { error } = await crearStack(editingStack as Omit<StackItem, 'id' | 'created_at'>);
+        if (error) throw error;
+        toast.success('Tecnología añadida', { id: toastId });
+      }
+      setIsStackModalOpen(false);
+      fetchStackData();
+    } catch (err) {
+      console.error(err);
+      toast.error('Error al guardar', { id: toastId });
+    }
+  };
+
+  const handleDeleteStack = async (id: number) => {
+    if (window.confirm('¿Eliminar esta tecnología permanentemente?')) {
+      const toastId = toast.loading('Eliminando...');
+      const { error } = await eliminarStack(id);
+      if (!error) {
+        toast.success('Eliminado', { id: toastId });
+        fetchStackData();
+      } else {
+        toast.error('Error', { id: toastId });
+      }
+    }
+  };
+
   // Utils
   const formatearFecha = (fechaISO: string) => {
     return new Date(fechaISO).toLocaleDateString('es-ES', { 
@@ -234,6 +298,12 @@ const AdminDashboard = () => {
             className={`flex items-center gap-2 px-6 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all ${activeTab === 'proyectos' ? 'bg-[#e63946] text-white shadow-[0_0_20px_rgba(230,57,70,0.4)]' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'}`}
           >
             <FaProjectDiagram /> Proyectos
+          </button>
+          <button 
+            onClick={() => setActiveTab('stack')}
+            className={`flex items-center gap-2 px-6 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all ${activeTab === 'stack' ? 'bg-[#e63946] text-white shadow-[0_0_20px_rgba(230,57,70,0.4)]' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'}`}
+          >
+            <FaLayerGroup /> Stack Tecnológico
           </button>
         </div>
 
@@ -386,6 +456,57 @@ const AdminDashboard = () => {
             </>
           )}
 
+          {/* TAB STACK */}
+          {activeTab === 'stack' && (
+            <>
+              <div className="p-6 bg-zinc-900 border-b border-zinc-800 flex justify-between items-center flex-wrap gap-4">
+                <div className="flex items-center gap-4">
+                  <FaLayerGroup className="text-[#e63946] text-xl" />
+                  <h2 className="text-xl font-bold uppercase tracking-widest">Gestión del Stack Tecnológico ({stack.length})</h2>
+                </div>
+                <button onClick={() => openStackModal()} className="bg-[#e63946] hover:bg-white hover:text-black text-white px-4 py-2 rounded-lg font-black uppercase text-xs flex items-center gap-2 transition-all">
+                  <FaPlus /> Añadir Tecnología
+                </button>
+              </div>
+              
+              {loadingStack ? (
+                <div className="p-20 text-center text-zinc-500 font-black animate-pulse">Cargando tecnologías...</div>
+              ) : stack.length === 0 ? (
+                <div className="p-20 text-center text-zinc-500 font-black">No hay tecnologías registradas.</div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-black/50 text-xs uppercase tracking-widest text-zinc-500 font-black">
+                        <th className="p-5 border-b border-zinc-800">Tecnología</th>
+                        <th className="p-5 border-b border-zinc-800">Descripción / Detalles</th>
+                        <th className="p-5 border-b border-zinc-800">Icono (Clave)</th>
+                        <th className="p-5 border-b border-zinc-800 text-center">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {stack.map((item) => (
+                        <tr key={item.id} className="hover:bg-zinc-800/30 transition-colors group">
+                          <td className="p-5 border-b border-zinc-800/50 align-middle">
+                            <p className="font-bold text-white text-sm">{item.nombre}</p>
+                          </td>
+                          <td className="p-5 border-b border-zinc-800/50 align-middle text-sm text-zinc-400">{item.descripcion}</td>
+                          <td className="p-5 border-b border-zinc-800/50 align-middle text-sm text-zinc-400 font-mono bg-zinc-950/50 p-1 rounded inline-block mt-4">{item.icono}</td>
+                          <td className="p-5 border-b border-zinc-800/50 align-middle text-center">
+                            <div className="flex justify-center gap-2">
+                              <button onClick={() => openStackModal(item)} className="text-zinc-400 hover:text-white transition-colors p-2"><FaEdit /></button>
+                              <button onClick={() => handleDeleteStack(item.id)} className="text-zinc-600 hover:text-red-500 transition-colors p-2"><FaTrash /></button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </>
+          )}
+
         </div>
       </div>
 
@@ -460,6 +581,37 @@ const AdminDashboard = () => {
               
               <div className="pt-4 flex justify-end gap-4">
                 <button type="button" onClick={() => setIsProyectoModalOpen(false)} className="px-6 py-3 font-bold uppercase text-xs text-zinc-400 hover:text-white">Cancelar</button>
+                <button type="submit" className="bg-[#e63946] hover:bg-white hover:text-black text-white px-8 py-3 rounded-xl font-black uppercase text-xs transition-all shadow-lg">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL STACK */}
+      {isStackModalOpen && editingStack && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 w-full max-w-2xl shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onClick={() => setIsStackModalOpen(false)} className="absolute top-6 right-6 text-zinc-500 hover:text-white"><FaTimes className="text-xl" /></button>
+            <h3 className="text-2xl font-black uppercase italic mb-6">{editingStack.id ? 'Editar Tecnología' : 'Añadir Nueva Tecnología'}</h3>
+            
+            <form onSubmit={handleSaveStack} className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-bold">Nombre (Ej: Linux)</label>
+                <input required type="text" value={editingStack.nombre || ''} onChange={e => setEditingStack({...editingStack, nombre: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#e63946]" />
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-bold">Descripción / Detalles (Ej: Debian, Ubuntu)</label>
+                <input required type="text" value={editingStack.descripcion || ''} onChange={e => setEditingStack({...editingStack, descripcion: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#e63946]" />
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-bold">Código del Icono (Ej: FaLinux, FaWindows, FaDatabase)</label>
+                <input required type="text" value={editingStack.icono || ''} onChange={e => setEditingStack({...editingStack, icono: e.target.value})} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white font-mono focus:outline-none focus:border-[#e63946]" placeholder="FaTerminal" />
+                <p className="text-xs text-zinc-500 mt-2">Busca nombres de iconos en: <a href="https://react-icons.github.io/react-icons/icons/fa/" target="_blank" rel="noreferrer" className="text-[#e63946] hover:underline">FontAwesome React Icons</a></p>
+              </div>
+              
+              <div className="pt-4 flex justify-end gap-4">
+                <button type="button" onClick={() => setIsStackModalOpen(false)} className="px-6 py-3 font-bold uppercase text-xs text-zinc-400 hover:text-white">Cancelar</button>
                 <button type="submit" className="bg-[#e63946] hover:bg-white hover:text-black text-white px-8 py-3 rounded-xl font-black uppercase text-xs transition-all shadow-lg">Guardar</button>
               </div>
             </form>

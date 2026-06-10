@@ -1,8 +1,21 @@
-// src/pages/SobreMi.tsx
-
-import { FaDownload, FaServer, FaNetworkWired, FaLinux, FaWindows, FaDatabase, FaReact, FaGraduationCap } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { FaDownload, FaGraduationCap } from 'react-icons/fa';
+import * as FaIcons from 'react-icons/fa';
+import { obtenerStack, type StackItem } from '../services/stackService';
 
 const SobreMi = () => {
+  const [stack, setStack] = useState<StackItem[]>([]);
+  const [loadingStack, setLoadingStack] = useState(true);
+
+  useEffect(() => {
+    const fetchStack = async () => {
+      const { data } = await obtenerStack();
+      if (data) setStack(data);
+      setLoadingStack(false);
+    };
+    fetchStack();
+  }, []);
+
   return (
     <section className="min-h-screen pt-40 pb-20 px-6 bg-[#0a0a0a] text-white">
       <div className="max-w-7xl mx-auto">
@@ -59,24 +72,26 @@ const SobreMi = () => {
           <div className="lg:col-span-2 bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group hover:border-[#e63946]/50 hover:shadow-[0_0_30px_rgba(230,57,70,0.15)] transition-all duration-300">
             <h3 className="text-2xl font-black uppercase italic text-[#e63946] mb-8 relative z-10">Stack Tecnológico</h3>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
-              {[
-                { icon: FaLinux, name: "Linux", desc: "Debian, Ubuntu" },
-                { icon: FaWindows, name: "Win Server", desc: "AD, GPO" },
-                { icon: FaNetworkWired, name: "Redes Cisco", desc: "Routing, VLANs" },
-                { icon: FaServer, name: "Virtualización", desc: "Proxmox, VMware" },
-                { icon: FaDatabase, name: "Bases de Datos", desc: "SQL, Supabase" },
-                { icon: FaReact, name: "Frontend", desc: "React, Tailwind" }
-              ].map((tech, idx) => (
-                <div key={idx} className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 sm:gap-4 bg-zinc-950/50 backdrop-blur-sm p-4 rounded-2xl border border-zinc-800/50 hover:border-[#e63946] hover:bg-[#e63946]/5 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all cursor-default">
-                  <tech.icon className="text-3xl text-[#e63946] shrink-0" />
-                  <div>
-                    <p className="font-bold text-[10px] sm:text-xs uppercase text-white wrap-break-word">{tech.name}</p>
-                    <p className="text-[10px] sm:text-xs text-zinc-500 font-mono mt-1">{tech.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {loadingStack ? (
+              <div className="text-zinc-500 font-black animate-pulse relative z-10">Cargando base de datos...</div>
+            ) : stack.length === 0 ? (
+              <div className="text-zinc-500 font-black relative z-10">Todavía no hay herramientas registradas.</div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
+                {stack.map((tech) => {
+                  const IconComponent = (FaIcons as any)[tech.icono] || FaIcons.FaTerminal;
+                  return (
+                    <div key={tech.id} className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 sm:gap-4 bg-zinc-950/50 backdrop-blur-sm p-4 rounded-2xl border border-zinc-800/50 hover:border-[#e63946] hover:bg-[#e63946]/5 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all cursor-default">
+                      <IconComponent className="text-3xl text-[#e63946] shrink-0" />
+                      <div>
+                        <p className="font-bold text-[10px] sm:text-xs uppercase text-white wrap-break-word">{tech.nombre}</p>
+                        <p className="text-[10px] sm:text-xs text-zinc-500 font-mono mt-1">{tech.descripcion}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Bento Item 4: Stats (Ocupa 1 columna) */}
@@ -87,7 +102,7 @@ const SobreMi = () => {
               {[
                 { val: "1º", label: "ASIR" },
                 { val: "+5", label: "Proyectos" },
-                { val: "+8", label: "Tecnologías" },
+                { val: stack.length > 0 ? `+${stack.length}` : "...", label: "Tecnologías" },
                 { val: "100%", label: "Motivación" }
               ].map((stat, idx) => (
                 <div key={idx} className="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800/50 p-4 rounded-2xl text-center flex flex-col justify-center items-center group-hover:border-zinc-700 transition-all">
