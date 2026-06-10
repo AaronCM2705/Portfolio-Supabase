@@ -13,16 +13,47 @@ export interface Proyecto {
 // Función ASÍNCRONA que se conecta a Supabase para obtener el listado de proyectos.
 export const obtenerProyectos = async (): Promise<{ data: Proyecto[] | null; error: Error | null }> => {
   try {
-    // Aquí ejecutamos la consulta equivalente en SQL a: SELECT * FROM Proyectos;
-    // await hace que el código "espere" a que el servidor de Supabase responda.
-    const { data, error } = await supabase.from('Proyectos').select('*');
+    const { data, error } = await supabase.from('Proyectos').select('*').order('id', { ascending: false });
     if (error) throw error;
-    
-    // Si todo va bien, devolvemos los datos
     return { data, error: null };
   } catch (error) {
-    // Si hay un fallo de red o la tabla no existe, capturamos el error
     console.error('Error obteniendo proyectos desde Supabase:', error);
     return { data: null, error: error as Error };
+  }
+};
+
+// Crear un nuevo proyecto
+export const crearProyecto = async (proyecto: Omit<Proyecto, 'id'>): Promise<{ data: Proyecto[] | null; error: Error | null }> => {
+  try {
+    const { data, error } = await supabase.from('Proyectos').insert([proyecto]).select();
+    if (error) throw error;
+    return { data, error: null };
+  } catch (error) {
+    console.error('Error creando proyecto:', error);
+    return { data: null, error: error as Error };
+  }
+};
+
+// Actualizar un proyecto existente
+export const actualizarProyecto = async (id: number, proyecto: Partial<Omit<Proyecto, 'id'>>): Promise<{ data: Proyecto[] | null; error: Error | null }> => {
+  try {
+    const { data, error } = await supabase.from('Proyectos').update(proyecto).eq('id', id).select();
+    if (error) throw error;
+    return { data, error: null };
+  } catch (error) {
+    console.error('Error actualizando proyecto:', error);
+    return { data: null, error: error as Error };
+  }
+};
+
+// Eliminar un proyecto
+export const eliminarProyecto = async (id: number): Promise<{ error: Error | null }> => {
+  try {
+    const { error } = await supabase.from('Proyectos').delete().eq('id', id);
+    if (error) throw error;
+    return { error: null };
+  } catch (error) {
+    console.error('Error eliminando proyecto:', error);
+    return { error: error as Error };
   }
 };
