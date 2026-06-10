@@ -54,8 +54,11 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchMensajes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchCursosData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchProyectosData();
   }, []);
 
@@ -114,6 +117,7 @@ const AdminDashboard = () => {
       setIsCursoModalOpen(false);
       fetchCursosData();
     } catch (err) {
+      console.error(err);
       toast.error('Error al guardar el curso', { id: toastId });
     }
   };
@@ -164,6 +168,7 @@ const AdminDashboard = () => {
       setIsProyectoModalOpen(false);
       fetchProyectosData();
     } catch (err) {
+      console.error(err);
       toast.error('Error al guardar', { id: toastId });
     }
   };
