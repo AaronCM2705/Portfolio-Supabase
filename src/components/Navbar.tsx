@@ -47,7 +47,7 @@ const Navbar = () => {
         </div>
 
         {/* Links PC */}
-        <div className="hidden lg:flex items-center gap-6 xl:gap-10">
+        <div className="hidden xl:flex items-center gap-6 xl:gap-10">
           {links.map((link) => (
             <Link
               key={link.path}
@@ -73,7 +73,7 @@ const Navbar = () => {
         </div>
 
         {/* Toggle Menú móvil */}
-        <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-[#e63946] text-3xl z-50 relative p-2">
+        <button onClick={() => setIsOpen(!isOpen)} className="xl:hidden text-[#e63946] text-3xl z-50 relative p-2">
           {isOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
@@ -85,7 +85,7 @@ const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="lg:hidden absolute top-28 left-0 w-full bg-[#0f0f0f]/90 backdrop-blur-xl border-b border-zinc-800 p-10 flex flex-col gap-6 shadow-2xl z-40"
+          className="xl:hidden absolute top-28 left-0 w-full bg-[#0f0f0f]/90 backdrop-blur-xl border-b border-zinc-800 p-10 flex flex-col gap-6 shadow-2xl z-40"
         >
           {links.map((link) => (
             <Link 
