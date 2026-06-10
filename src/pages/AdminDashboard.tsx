@@ -491,7 +491,9 @@ const AdminDashboard = () => {
                             <p className="font-bold text-white text-sm">{item.nombre}</p>
                           </td>
                           <td className="p-5 border-b border-zinc-800/50 align-middle text-sm text-zinc-400">{item.descripcion}</td>
-                          <td className="p-5 border-b border-zinc-800/50 align-middle text-sm text-zinc-400 font-mono bg-zinc-950/50 p-1 rounded inline-block mt-4">{item.icono}</td>
+                          <td className="p-5 border-b border-zinc-800/50 align-middle text-sm text-zinc-400">
+                            <span className="font-mono bg-zinc-950/50 p-1 px-2 rounded inline-block">{item.icono}</span>
+                          </td>
                           <td className="p-5 border-b border-zinc-800/50 align-middle text-center">
                             <div className="flex justify-center gap-2">
                               <button onClick={() => openStackModal(item)} className="text-zinc-400 hover:text-white transition-colors p-2"><FaEdit /></button>
