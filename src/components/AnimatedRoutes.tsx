@@ -1,19 +1,19 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom'; // UseLocation para obtener la ubicación actual
+import { AnimatePresence, motion } from 'framer-motion'; // AnimatePresence para las animaciones
+import { useEffect } from 'react'; // UseEffect para el scroll
 
 // Pages
-import Home from '../pages/Home';
-import SobreMi from '../pages/SobreMi';
-import Servicios from '../pages/Servicios';
-import Proyectos from '../pages/Proyectos';
-import Contacto from '../pages/Contacto';
-import ServicioDetalle from '../pages/ServicioDetalle';
-import Cursos from '../pages/Cursos';
-import Login from '../pages/Login';
-import AdminDashboard from '../pages/AdminDashboard';
-import NotFound from '../pages/NotFound';
-import ProtectedRoute from './ProtectedRoute';
+import Home from '../pages/Home'; // Página principal 
+import SobreMi from '../pages/SobreMi'; // Página sobre mí
+import Servicios from '../pages/Servicios'; // Página de servicios
+import Proyectos from '../pages/Proyectos'; // Página de proyectos
+import Contacto from '../pages/Contacto'; // Página de contacto
+import ServicioDetalle from '../pages/ServicioDetalle'; // Página de detalle de servicio
+import Cursos from '../pages/Cursos'; // Página de cursos
+import Login from '../pages/Login'; // Página de login
+import AdminDashboard from '../pages/AdminDashboard'; // Página de administración
+import NotFound from '../pages/NotFound'; // Página de error 404
+import ProtectedRoute from './ProtectedRoute'; // Protección de rutas
 
 // Wrapper for animations
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {

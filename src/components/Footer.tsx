@@ -1,11 +1,10 @@
 // src/components/Footer.tsx
 
-import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaTerminal, FaLock } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Link para poder navegar entre páginas
+import { FaGithub, FaLinkedin, FaEnvelope, FaTerminal, FaLock } from 'react-icons/fa'; // Iconos de redes sociales
 
-const Footer = () => {
-  // Sacamos el año actual para no tener que cambiarlo a mano cada año
-  const currentYear = new Date().getFullYear();
+const Footer = () => { // Pie de página
+  const currentYear = new Date().getFullYear(); // Sacamos el año actual para no tener que cambiarlo a mano cada año
 
   return (
     <footer className="bg-[#0f0f0f] border-t border-zinc-800 text-zinc-400 py-12 px-6 mt-20 relative overflow-hidden">

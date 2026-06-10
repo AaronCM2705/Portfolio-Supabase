@@ -1,8 +1,8 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import AnimatedRoutes from './components/AnimatedRoutes';
-import { Toaster } from 'react-hot-toast';
+import { BrowserRouter as Router } from 'react-router-dom'; // BrowserRouter para poder navegar entre páginas
+import Navbar from './components/Navbar'; // Menú superior
+import Footer from './components/Footer'; // Pie de página
+import AnimatedRoutes from './components/AnimatedRoutes'; // Animaciones al cambiar de página
+import { Toaster } from 'react-hot-toast'; // Sistema de notificaciones
 
 function App() {
   return (
